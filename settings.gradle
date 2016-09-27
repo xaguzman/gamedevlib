@@ -1,0 +1,3 @@
+include 'libgdx', 'artemisodb'
+rootProject.name = 'gamedev-lib'
+
