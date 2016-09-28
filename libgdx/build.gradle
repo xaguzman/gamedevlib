@@ -38,19 +38,19 @@ uploadArchives {
             }
 
             pom.project {
-                name 'Libgdx'
+                name 'Gamedevlib - Libgdx'
                 description 'A set of utilities to speed up libgdx game dev'
                 version project.projectVersion
                 groupId project.projectGroupId
                 artifactId project.archivesBaseName
 
                 packaging 'jar'
-                url 'https://github.com/xaguzman/gdx-commons'
+                url 'https://github.com/xaguzman/gamedevlib'
 
                 scm {
-                    connection 'scm:git:git://github.com/xaguzman/gdx-commons.git'
-                    developerConnection 'scm:git:git@github.com:xaguzman/gdx-commons.git'
-                    url 'http://github.com/xaguzman/gdx-commons'
+                    connection 'scm:git:git://github.com/xaguzman/gamedevlib.git'
+                    developerConnection 'scm:git:git@github.com:xaguzman/gamedevlib.git'
+                    url 'http://github.com/xaguzman/gamedevlib'
                 }
 
                 licenses {

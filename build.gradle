@@ -19,7 +19,7 @@ allprojects{
 }
 
 ext {
-    projectVersion = '0.0.1'
+    projectVersion = '0.1.0'
     projectGroupId = 'com.github.xaguzman'
     gdxVersion = '1.9.4'
     artemisVersion = '2.0.0'

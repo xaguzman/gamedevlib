@@ -36,7 +36,7 @@ uploadArchives {
             }
 
             pom.project {
-                name 'Artemis Odb Commons'
+                name 'Gamedevlib - Artemisodb'
                 description 'A set of utilities to speed up libgdx game dev (with artemis odb)'
                 version project.projectVersion
                 groupId project.projectGroupId
@@ -47,7 +47,7 @@ uploadArchives {
 
                 scm {
                     connection 'scm:git:git://github.com/xaguzman/gamedevlib.git'
-                    developerConnection 'scm:git:git@github.com:xaguzman/gdx-commons.git'
+                    developerConnection 'scm:git:git@github.com:xaguzman/gamedevlib.git'
                     url 'http://github.com/xaguzman/gamedevlib'
                 }
 
@@ -66,6 +66,15 @@ uploadArchives {
                         timezone 'CST  (GMT-6)'
                     }
                 }
+
+                dependencies {
+                    dependency {
+                        groupId project.projectGroupId
+                        artifactId 'gamedevlib-libgdx'
+                        version project.projectVersion
+                        scope 'compile'
+                    }
+                }
             }
         }
     }
@@ -74,5 +83,13 @@ uploadArchives {
 task testPom << {
     uploadArchives.repositories.mavenDeployer.pom.writeTo("$buildDir/artemisodb.pom.xml")
     print('created $buildDir/artemisodb.pom.xml')
+}
+
+def installer = install.repositories.mavenInstaller
+def deployer = uploadArchives.repositories.mavenDeployer
+[installer, deployer]*.pom*.whenConfigured { pom ->
+    //hacky way to fix the dependency on the core library...
+    pom.dependencies = pom.dependencies.findAll { dep -> dep.groupId != 'gamedev-lib' && dep.version != 'unspecified' }
+    print(pom.dependencies)
 }
 
