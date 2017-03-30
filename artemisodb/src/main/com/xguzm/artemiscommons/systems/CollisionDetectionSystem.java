@@ -8,26 +8,27 @@ import com.artemis.systems.IntervalIteratingSystem;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Pool;
-import com.xguzm.artemiscommons.components.Collision;
+import com.xguzm.artemiscommons.components.Collider;
 import com.xguzm.artemiscommons.components.Velocity;
 import com.xguzm.artemiscommons.events.Event;
 
 /**
  * Triggers events when a collision happens between two entities.
- * Depends on {@link EventsSystem} and {@link SpatialHashSystem}
+ * Depends on {@link EventsSystem} and {@link SpatialHashgridSystem}
  * */
+@SuppressWarnings({"unchecked", "WeakerAccess"})
 public class CollisionDetectionSystem extends IntervalIteratingSystem {
 
     @Wire EventsSystem events;
-    @Wire SpatialHashSystem hashGrid;
-    @Wire ComponentMapper<Collision> collisionMapper;
+    @Wire SpatialHashgridSystem hashGrid;
+    @Wire ComponentMapper<Collider> collisionMapper;
     @Wire ComponentMapper<Velocity> velMapper;
 
     private final int[] collisionEntities = new int[2];
 
-    Array<CollisionPair> activeCollisions;
-    Array<CollisionPair> tmp;
-    Pool<CollisionPair> collisionPairPool;
+    private Array<CollisionPair> activeCollisions;
+    private Array<CollisionPair> tmp;
+    private Pool<CollisionPair> collisionPairPool;
 
     /** Creates the collision system with the update time set to 1/10 (process 10 times per second) */
     public CollisionDetectionSystem(){
@@ -35,7 +36,7 @@ public class CollisionDetectionSystem extends IntervalIteratingSystem {
     }
 
     public CollisionDetectionSystem(float updateInterval){
-        super(Aspect.all(Collision.class), updateInterval);
+        super(Aspect.all(Collider.class), updateInterval);
     }
 
     @Override
@@ -67,8 +68,8 @@ public class CollisionDetectionSystem extends IntervalIteratingSystem {
     }
 
     private void checkCollision(int e, int potentialCollider){
-        Collision eCol = collisionMapper.get(e);
-        Collision potColliderCol = collisionMapper.get(potentialCollider);
+        Collider eCol = collisionMapper.get(e);
+        Collider potColliderCol = collisionMapper.get(potentialCollider);
 
         if (canCollide(eCol, potColliderCol) && collisionExists(eCol, potColliderCol)){
             CollisionPair collisionPair = getOrCreateCollisionPair(e, potentialCollider);
@@ -92,7 +93,7 @@ public class CollisionDetectionSystem extends IntervalIteratingSystem {
                 //on collision end
 
                 Event collisionEndEvent = new Event();
-                collisionEndEvent.type = Event.Types.COLLISION_STARTED;
+                collisionEndEvent.type = Event.Types.COLLISION_ENDED;
                 collisionEntities[0] = collisionPair.eId1;
                 collisionEntities[1] = collisionPair.eId2;
                 collisionEndEvent.sourceEntities = collisionEntities;
@@ -104,7 +105,8 @@ public class CollisionDetectionSystem extends IntervalIteratingSystem {
         }
     }
 
-    private boolean canCollide(Collision collisionA, Collision collisionB){
+    @SuppressWarnings("SimplifiableIfStatement")
+    private boolean canCollide(Collider collisionA, Collider collisionB){
 
         if (collisionA == null || collisionB == null)
             return false; //could happen when an entity is removed
@@ -113,8 +115,8 @@ public class CollisionDetectionSystem extends IntervalIteratingSystem {
                 (collisionA.categoryBits & collisionB.categoryMaskBits) != 0;
     }
 
-    private boolean collisionExists(Collision c1, Collision c2) {
-        return c1.bounds.overlaps(c2.bounds);
+    private boolean collisionExists(Collider c1, Collider c2) {
+        return c1.shape.collidesWith(c2.shape);
     }
 
     private CollisionPair getCollisionPair(int id1, int id2){
@@ -180,6 +182,9 @@ public class CollisionDetectionSystem extends IntervalIteratingSystem {
 
         @Override
         public boolean equals(Object obj) {
+            if ( !(obj instanceof CollisionPair))
+                return false;
+
             CollisionPair pair = (CollisionPair)obj;
 
             return (pair.eId1 == eId1 && pair.eId2 == eId2) || (pair.eId1 == eId2 && pair.eId2 == eId1);
