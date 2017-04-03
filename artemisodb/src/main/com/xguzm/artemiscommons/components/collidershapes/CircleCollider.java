@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 
 /**
- * Collider with circle shape, where it's position is absolute (world position).
+ * Collider with circle shape, where it's xy is absolute (world xy).
  *
  * It has a radius, and the middle of the radius is given by left and bottom properties.
  * Created by gdlxguzm on 3/28/2017.

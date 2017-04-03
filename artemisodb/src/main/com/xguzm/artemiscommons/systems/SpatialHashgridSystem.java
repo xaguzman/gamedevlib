@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntMap;
 import com.xguzm.artemiscommons.components.Collider;
-import com.xguzm.artemiscommons.components.Position;
+import com.xguzm.artemiscommons.components.transform.Position;
 import com.xguzm.artemiscommons.components.Velocity;
 
 /**
@@ -247,7 +247,7 @@ public class SpatialHashgridSystem extends IteratingSystem {
 
         Collider col = colMapper.get(entityId);
         Position pos = posMapper.get(entityId);
-        col.shape.setPosition(pos.x(), pos.y());;
+        col.shape.setPosition(pos.xy);;
         addDynamicEntity(entityId, col);
     }
 

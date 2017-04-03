@@ -1,4 +1,4 @@
-package com.xguzm.artemiscommons.components;
+package com.xguzm.artemiscommons.components.transform;
 
 import com.artemis.PooledComponent;
 import com.badlogic.gdx.math.Vector2;
@@ -8,11 +8,11 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Position extends PooledComponent {
 
-    public Vector2 xy = new Vector2();
+    public final Vector2 xy = new Vector2();
 
     @Override
     protected void reset() {
-        xy.set(0, 0);
+        xy.setZero();
     }
 
     public void set(float x, float y){

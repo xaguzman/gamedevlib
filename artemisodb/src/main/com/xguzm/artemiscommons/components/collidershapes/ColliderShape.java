@@ -40,21 +40,21 @@ public abstract class ColliderShape {
     public abstract void center();
 
     /**
-     * The absolute position of the collider, in world units
+     * The absolute xy of the collider, in world units
      * */
     public Vector2 getPosition() {
         return position;
     }
 
     /**
-     * The absolute position of the collider, in world units
+     * The absolute xy of the collider, in world units
      * */
     public void setPosition(Vector2 position) {
         this.position = position;
     }
 
     /**
-     * The absolute position of the collider, in world units
+     * The absolute xy of the collider, in world units
      * */
     public void setPosition(float x, float y){
         this.position.set(x, y);

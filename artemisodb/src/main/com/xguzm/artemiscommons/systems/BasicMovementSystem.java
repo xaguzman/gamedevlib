@@ -6,31 +6,36 @@ import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
 import com.badlogic.gdx.math.Vector2;
-import com.xguzm.artemiscommons.components.Position;
+import com.xguzm.artemiscommons.components.transform.Position;
 import com.xguzm.artemiscommons.components.Velocity;
 
 
 /**
+ * A system which will move an entity based on it's position and its velocity(scaled).
+ *
+ * The movement is not restricted by any means
  * Created by gdlxguzm on 5/20/2015.
  */
-public class MovementSystem extends EntityProcessingSystem {
+public class BasicMovementSystem extends EntityProcessingSystem {
 
     @Wire ComponentMapper<Velocity> vm;
     @Wire ComponentMapper<Position> pm;
 
     private Vector2 nextPosition = new Vector2();
+    private Vector2 scaledVelocity = new Vector2();
 
-    public MovementSystem() {
+    public BasicMovementSystem() {
         super(Aspect.all(Position.class, Velocity.class));
     }
 
-
-
     @Override
     protected void process(Entity e) {
-        Position pos = pm.get(e);
-        Velocity vel = vm.get(e);
+        Position position = pm.get(e);
+        Velocity velocity = vm.get(e);
 
-        nextPosition.set(pos.xy).add(vel.xy);
+        scaledVelocity.set(velocity.xy);
+        nextPosition.set(position.xy).add(scaledVelocity);
+
+        position.xy.set(nextPosition);
     }
 }

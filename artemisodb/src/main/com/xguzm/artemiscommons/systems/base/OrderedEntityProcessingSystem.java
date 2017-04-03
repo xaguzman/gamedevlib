@@ -18,9 +18,13 @@ public abstract class OrderedEntityProcessingSystem extends BaseEntitySystem {
     private Comparator<Entity> comparator;
     private Array<Entity> entities;
 
-    protected OrderedEntityProcessingSystem(Aspect.Builder aspect, Comparator<Entity> comparator){
+    protected OrderedEntityProcessingSystem(Aspect.Builder aspect){
         super(aspect);
         entities = new Array<Entity>();
+    }
+
+    protected OrderedEntityProcessingSystem(Aspect.Builder aspect, Comparator<Entity> comparator){
+        this(aspect);
         this.comparator = comparator;
     }
 
