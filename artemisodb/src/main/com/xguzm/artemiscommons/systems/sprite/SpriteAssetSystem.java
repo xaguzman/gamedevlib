@@ -55,7 +55,7 @@ public class SpriteAssetSystem extends PassiveSystem {
      * will read all the static sprites comming from the given texture atlas.
      *
      * The provided texture atlas will be disposed once this system is disposed
-     * TO READ ANIMATIONS YOU NEED TO CALL {@#loadAnimations}
+     * TO READ ANIMATIONS YOU NEED TO CALL {@link #load(String, String, float)}
      */
     public void add(TextureAtlas atlas, String id){
         add(atlas, id, true);
@@ -66,7 +66,7 @@ public class SpriteAssetSystem extends PassiveSystem {
      * Reads all the static sprites comming from the given texture atlas.
      *</p>
      * This system will store and dispose the texture atlas if ownAtlas is true
-     * TO READ ANIMATIONS YOU NEED TO CALL {@link #load}
+     * TO READ ANIMATIONS YOU NEED TO CALL {@link #load(String, String, float)}
      */
     public void add(TextureAtlas atlas, String id, boolean ownAtlas){
         ownsAtlasses.put(id, ownAtlas);

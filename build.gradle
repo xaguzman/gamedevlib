@@ -19,7 +19,7 @@ allprojects{
 }
 
 ext {
-    projectVersion = '0.1.0'
+    projectVersion = '0.1.1'
     projectGroupId = 'com.github.xaguzman'
     gdxVersion = '1.9.4'
     artemisVersion = '2.0.0'
@@ -75,3 +75,10 @@ tasks.eclipse.doLast {
     delete ".project"
 }
 
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
+}
