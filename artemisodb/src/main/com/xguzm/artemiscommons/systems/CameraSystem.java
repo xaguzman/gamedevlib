@@ -13,28 +13,28 @@ import com.xguzm.artemiscommons.systems.base.PassiveSystem;
 public class CameraSystem extends PassiveSystem {
 
     private ObjectMap<String, OrthographicCamera> cameras;
-    protected OrthographicCamera camera, gui;
+    protected OrthographicCamera worldCamera, guiCamera;
 
     public void add(OrthographicCamera camera, String id){
         cameras.put(id, camera);
     }
 
     /**
-     * Creates the default camera with Gdx.graphics.getWidth() and Gdx.graphics.getHeight(), having the y axis pointing up
+     * Creates the default worldCamera with Gdx.graphics.getWidth() and Gdx.graphics.getHeight(), having the y axis pointing up
      */
     public void create(){
         create(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
     }
 
     /**
-     * Creates the gui camera with Gdx.graphics.getWidth() and Gdx.graphics.getHeight(), having the y axis pointing up
+     * Creates the guiCamera worldCamera with Gdx.graphics.getWidth() and Gdx.graphics.getHeight(), having the y axis pointing up
      */
     public void createGui(){
         createGui(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
     }
 
     /**
-     * Creates the default camera with the given width and height, having the y axis pointing up
+     * Creates the worldCamera with the given width and height, having the y axis pointing up
      * @param width viewport width
      * @param height viewport height
      */
@@ -43,17 +43,17 @@ public class CameraSystem extends PassiveSystem {
     }
 
     /**
-     * Creates the default camera with the given width and height, having the y axis pointing up
+     * Creates the worldCamera with the given width and height, having the y axis pointing up
      * @param width viewport width
      * @param height viewport height
      */
     public void create(int width, int height, boolean ydown){
-        camera = new OrthographicCamera();
-        camera.setToOrtho(ydown, width, height);
+        worldCamera = new OrthographicCamera();
+        worldCamera.setToOrtho(ydown, width, height);
     }
 
     /**
-     * Creates the gui camera with the given width and height, having the y axis pointing up
+     * Creates the guiCamera with the given width and height, having the y axis pointing up
      * @param width viewport width
      * @param height viewport height
      */
@@ -62,13 +62,13 @@ public class CameraSystem extends PassiveSystem {
     }
 
     /**
-     * Creates the gui camera with the given width and height, having the y axis pointing up
+     * Creates the guiCamera with the given width and height, having the y axis pointing up
      * @param width viewport width
      * @param height viewport height
      */
     public void createGui(int width, int height, boolean ydown){
-        gui = new OrthographicCamera();
-        gui.setToOrtho(ydown, width, height);
+        guiCamera = new OrthographicCamera();
+        guiCamera.setToOrtho(ydown, width, height);
     }
 
     /**
@@ -104,14 +104,14 @@ public class CameraSystem extends PassiveSystem {
         return cameras.get(id, null);
     }
 
-    /** Retrieve the default camera */
+    /** Retrieve the worldCamera */
     public OrthographicCamera get(){
-        return camera;
+        return worldCamera;
     }
 
-    /** Retrieve the gui camera */
-    public OrthographicCamera getGui(){
-        return gui;
+    /** Retrieve the guiCamera */
+    public OrthographicCamera getGuiCamera(){
+        return guiCamera;
     }
 
 

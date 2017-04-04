@@ -9,7 +9,7 @@ public class Rotation extends PooledComponent {
     public float angle;
 
     /** No rotation (angle = 0)*/
-    public static final Rotation DEFAULT = new Rotation();
+    public static final Rotation NONE = new Rotation();
 
     @Override
     protected void reset() {

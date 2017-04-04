@@ -11,6 +11,8 @@ public class Collider extends PooledComponent {
     public ColliderShape shape;
     public int categoryBits, categoryMaskBits;
 
+    public Collider(){}
+
     public Collider(ColliderShape shape){
         this.shape = shape;
     }

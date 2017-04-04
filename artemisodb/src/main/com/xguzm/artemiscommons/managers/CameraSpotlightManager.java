@@ -6,7 +6,7 @@ import com.artemis.utils.IntBag;
 import com.xguzm.artemiscommons.components.CameraSpotlight;
 
 /**
- * Makes sure there's never more than 1 camera spotlight
+ * Makes sure there's never more than 1 worldCamera spotlight
  *
  * Created by gdlxguzm on 4/3/2017.
  */

@@ -1,16 +1,16 @@
-package com.xguzm.artemiscommons.systems;
+package com.xguzm.artemiscommons.systems.sprite;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.xguzm.artemiscommons.systems.base.PassiveSystem;
 
 /**
- * Stores information about static / sprites and animations procedent from a TextureAtlas
+ * Stores information about static sprites, bitmapfonts and animations procedent from a TextureAtlas
  *
  *
  * Created by gdlxguzm on 4/3/2017.
@@ -24,13 +24,12 @@ public class SpriteAssetSystem extends PassiveSystem {
     private TextureAtlas defaultAtlas;
     private boolean ownsAtlas;
 
-
-
     @Override
     protected void initialize() {
         animations = new ObjectMap<String, Animation>();
         sprites = new ObjectMap<String, Sprite>();
         atlasses = new ObjectMap<String, TextureAtlas>();
+        ownsAtlasses = new ObjectMap<String, Boolean>();
     }
 
     /** adds the default atlas, which will be disposed along with this system*/
@@ -63,10 +62,11 @@ public class SpriteAssetSystem extends PassiveSystem {
     }
 
     /**
-     * will read all the static sprites comming from the given texture atlas.
-     *
-     * This system will store and dispose the texture atlas if {@ownAtlas} is true
-     * TO READ ANIMATIONS YOU NEED TO CALL {@#loadAnimations}
+     * <p>
+     * Reads all the static sprites comming from the given texture atlas.
+     *</p>
+     * This system will store and dispose the texture atlas if ownAtlas is true
+     * TO READ ANIMATIONS YOU NEED TO CALL {@link #load}
      */
     public void add(TextureAtlas atlas, String id, boolean ownAtlas){
         ownsAtlasses.put(id, ownAtlas);
@@ -102,6 +102,56 @@ public class SpriteAssetSystem extends PassiveSystem {
         animations.put(id, animation);
 
         return animation;
+    }
+
+    /**
+     * Register an animation from spritesheet (retrieved by calling {@link #spriteSheet(String, int, int)})
+     * <p>
+     *     No padding / margin between each frame is supported at the moment
+     * </p>
+     * After registering this, the animation will be available through {@link #getAnimation(String)} by providing the the given animationId.
+     *
+     */
+    public Animation create(String animationId, TextureRegion[] frames, float frameDuration){
+        Animation newAnim = new Animation(frameDuration, frames);
+        animations.put(animationId, newAnim);
+
+        return newAnim;
+    }
+
+    /**
+     * <p>Creates a spritesheet from the given regionId with the width,height dimensions. </p>
+     * <p>After retrieving the Spritesheet, the animations stored in it can be
+     * registered in this system by calling {@link #create(String, TextureRegion[], float)}
+     * </p>
+     *
+     * <p>
+     * After registering this, the animation will be available
+     * through {@link #getAnimation(String)} by providing the the given animationId.
+     * <b>The textureRegion with the given id must already be part of the registered atlases</b>
+     * </p>
+     *
+     * The animations in the spritesheet are assumed to be 1 row per animation. No padding / margin between each frame is
+     * supported at the moment
+     */
+    public TextureRegion[][] spriteSheet(String regionId, int width, int height){
+        if (!sprites.containsKey(regionId))
+            return null;
+
+        return sprites.get(regionId).split(width, height);
+    }
+
+
+    public Animation getAnimation(String animationName) {
+        return animations.get(animationName, null);
+    }
+
+    public Sprite getSprite(String spriteName) {
+        return sprites.get(spriteName, null);
+    }
+
+    public void removeSprite(String spriteName){
+        sprites.remove(spriteName);
     }
 
     @Override

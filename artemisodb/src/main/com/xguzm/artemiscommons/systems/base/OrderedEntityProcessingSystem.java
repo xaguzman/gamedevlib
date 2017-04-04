@@ -15,39 +15,39 @@ import java.util.Comparator;
  */
 public abstract class OrderedEntityProcessingSystem extends BaseEntitySystem {
 
-    private Comparator<Entity> comparator;
-    private Array<Entity> entities;
+    private Comparator<Integer> comparator;
+    private Array<Integer> entities;
 
     protected OrderedEntityProcessingSystem(Aspect.Builder aspect){
         super(aspect);
-        entities = new Array<Entity>();
+        entities = new Array<Integer>();
     }
 
-    protected OrderedEntityProcessingSystem(Aspect.Builder aspect, Comparator<Entity> comparator){
+    protected OrderedEntityProcessingSystem(Aspect.Builder aspect, Comparator<Integer> comparator){
         this(aspect);
         this.comparator = comparator;
     }
 
-    protected void setComparator(Comparator<Entity> comparator){
+    protected void setComparator(Comparator<Integer> comparator){
         this.comparator = comparator;
     }
 
     @Override
     public void inserted(int entityId) {
-        entities.add(world.getEntity(entityId));
+        entities.add(entityId);
     }
 
     @Override
     public void removed(int entityId) {
-        entities.removeValue(world.getEntity(entityId), true);
+        entities.removeValue(entityId, true);
     }
 
     @Override
     public void processSystem(){
         entities.sort(comparator);
-        for (Entity e : entities)
-            process(e);
+        for (int entityId : entities)
+            process(entityId);
     }
 
-    public abstract void process(Entity e);
+    public abstract void process(int entityId);
 }
