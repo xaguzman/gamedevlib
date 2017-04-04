@@ -82,7 +82,7 @@ uploadArchives {
 
 task testPom << {
     uploadArchives.repositories.mavenDeployer.pom.writeTo("$buildDir/artemisodb.pom.xml")
-    print('created $buildDir/artemisodb.pom.xml')
+    print("created $buildDir/artemisodb.pom.xml")
 }
 
 def installer = install.repositories.mavenInstaller
