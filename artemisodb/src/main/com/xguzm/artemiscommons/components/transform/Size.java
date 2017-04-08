@@ -1,7 +1,6 @@
 package com.xguzm.artemiscommons.components.transform;
 
 import com.artemis.PooledComponent;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.xguzm.artemiscommons.components.Tweenable;
 
@@ -22,6 +21,11 @@ public class Size extends PooledComponent implements Tweenable{
     @Override
     protected void reset() {
         xy.setZero();
+    }
+
+    @Override
+    public int getNumComponents() {
+        return 2;
     }
 
     @Override

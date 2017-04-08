@@ -2,12 +2,11 @@ package com.xguzm.artemiscommons.components;
 
 import com.artemis.PooledComponent;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Interpolation;
 
 /**
  * Created by gdlxguzm on 3/31/2017.
  */
-public class Tint extends PooledComponent implements Tweenable<Tint> {
+public class Tint extends PooledComponent implements Tweenable {
     public final Color color = new Color();
 
     public static final Tint WHITE = new Tint(Color.WHITE);
@@ -26,12 +25,23 @@ public class Tint extends PooledComponent implements Tweenable<Tint> {
     }
 
     @Override
-    public void linearTween(Tint thiz, Tint other, float value) {
-        float r = Interpolation.linear.apply(thiz.color.r, other.color.r, value);
-        float g = Interpolation.linear.apply(thiz.color.g, other.color.g, value);
-        float b = Interpolation.linear.apply(thiz.color.b, other.color.b, value);
-        float a = Interpolation.linear.apply(thiz.color.a, other.color.a, value);
+    public int getNumComponents() {
+        return 4;
+    }
 
-        thiz.color.set(r, g, b, a);
+    @Override
+    public void setTweenableValues(float[] newValues) {
+        color.r = newValues[0];
+        color.g = newValues[1];
+        color.b = newValues[2];
+        color.a = newValues[3];
+    }
+
+    @Override
+    public void getTweenableValues(float[] returnValues) {
+        returnValues[0] = color.r;
+        returnValues[1] = color.g;
+        returnValues[2] = color.b;
+        returnValues[3] = color.a;
     }
 }

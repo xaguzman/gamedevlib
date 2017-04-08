@@ -1,7 +1,7 @@
 buildscript{
     repositories{
-        mavenCentral()
         mavenLocal()
+        mavenCentral()
     }
 }
 
@@ -11,15 +11,28 @@ allprojects{
     apply plugin: 'idea'
 
     repositories{
+        mavenLocal()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        mavenLocal()
+
     }
+
+
+
+   /** needed to disable Java 8 doclint which throws errors **/
+    if (JavaVersion.current().isJava8Compatible()) {
+        allprojects {
+            tasks.withType(Javadoc) {
+                options.addStringOption('Xdoclint:none', '-quiet')
+            }
+        }
+    }
+
 }
 
 ext {
-    projectVersion = '0.1.1'
+    projectVersion = '0.1.3-SNAPSHOT'
     projectGroupId = 'com.github.xaguzman'
     gdxVersion = '1.9.4'
     artemisVersion = '2.0.0'

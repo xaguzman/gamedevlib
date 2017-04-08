@@ -1,6 +1,7 @@
 package com.xguzm.artemiscommons.systems.sprite;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -21,6 +22,8 @@ public class SpriteAssetSystem extends PassiveSystem {
     private ObjectMap<String, Sprite> sprites;
     private ObjectMap<String, TextureAtlas> atlasses;
     private ObjectMap<String, Boolean> ownsAtlasses;
+    private ObjectMap<String, Texture> textures;
+    private ObjectMap<String, Boolean> ownsTextures;
     private TextureAtlas defaultAtlas;
     private boolean ownsAtlas;
 
@@ -30,15 +33,17 @@ public class SpriteAssetSystem extends PassiveSystem {
         sprites = new ObjectMap<String, Sprite>();
         atlasses = new ObjectMap<String, TextureAtlas>();
         ownsAtlasses = new ObjectMap<String, Boolean>();
+        textures = new ObjectMap<String, Texture>();
+        ownsTextures = new ObjectMap<String, Boolean>();
     }
 
     /** adds the default atlas, which will be disposed along with this system*/
-    public void add(TextureAtlas atlas){
-        add(atlas, true);
+    public void addAtlas(TextureAtlas atlas){
+        addAtlas(atlas, true);
     }
 
     /** adds the default atlas*/
-    public void add(TextureAtlas atlas, boolean ownsAtlas){
+    public void addAtlas(TextureAtlas atlas, boolean ownsAtlas){
         this.ownsAtlas = ownsAtlas;
         this.defaultAtlas = atlas;
 
@@ -55,10 +60,10 @@ public class SpriteAssetSystem extends PassiveSystem {
      * will read all the static sprites comming from the given texture atlas.
      *
      * The provided texture atlas will be disposed once this system is disposed
-     * TO READ ANIMATIONS YOU NEED TO CALL {@link #load(String, String, float)}
+     * TO READ ANIMATIONS YOU NEED TO CALL {@link #loadAnimation(String, String, float)}
      */
-    public void add(TextureAtlas atlas, String id){
-        add(atlas, id, true);
+    public void addAtlas(TextureAtlas atlas, String id){
+        addAtlas(atlas, id, true);
     }
 
     /**
@@ -66,9 +71,9 @@ public class SpriteAssetSystem extends PassiveSystem {
      * Reads all the static sprites comming from the given texture atlas.
      *</p>
      * This system will store and dispose the texture atlas if ownAtlas is true
-     * TO READ ANIMATIONS YOU NEED TO CALL {@link #load(String, String, float)}
+     * TO READ ANIMATIONS YOU NEED TO CALL {@link #loadAnimation(String, String, float)}
      */
-    public void add(TextureAtlas atlas, String id, boolean ownAtlas){
+    public void addAtlas(TextureAtlas atlas, String id, boolean ownAtlas){
         ownsAtlasses.put(id, ownAtlas);
 
         for(TextureAtlas.AtlasRegion region : atlas.getRegions()){
@@ -80,10 +85,19 @@ public class SpriteAssetSystem extends PassiveSystem {
         }
     }
 
+    public void addTexture(Texture texture, String textureId){
+        addTexture(texture, textureId, true);
+    }
+
+    public void addTexture(Texture texture, String textureId, boolean ownsTexture){
+        textures.put(textureId, texture);
+        ownsTextures.put(textureId, ownsTexture);
+    }
+
     /**
      *  Loads an animation from the default atlas
      * */
-    public Animation load(String id, float frameDuration){
+    public Animation loadAnimation(String id, float frameDuration){
         Array<Sprite> sprites = defaultAtlas.createSprites(id);
 
         Animation animation = new Animation(frameDuration, sprites);
@@ -95,7 +109,7 @@ public class SpriteAssetSystem extends PassiveSystem {
     /**
      *  Loads an animation from a previously registered atlas
      * */
-    public Animation load(String id, String atlasId, float frameDuration){
+    public Animation loadAnimation(String id, String atlasId, float frameDuration){
         Array<Sprite> sprites = atlasses.get(atlasId).createSprites(id);
 
         Animation animation = new Animation(frameDuration, sprites);
@@ -112,7 +126,7 @@ public class SpriteAssetSystem extends PassiveSystem {
      * After registering this, the animation will be available through {@link #getAnimation(String)} by providing the the given animationId.
      *
      */
-    public Animation create(String animationId, TextureRegion[] frames, float frameDuration){
+    public Animation createAnimation(String animationId, TextureRegion[] frames, float frameDuration){
         Animation newAnim = new Animation(frameDuration, frames);
         animations.put(animationId, newAnim);
 
@@ -120,9 +134,17 @@ public class SpriteAssetSystem extends PassiveSystem {
     }
 
     /**
+     * Adds an animation to the asset system
+     * */
+
+    public void loadAnimation(Animation animation, String animationId){
+        animations.put(animationId, animation);
+    }
+
+    /**
      * <p>Creates a spritesheet from the given regionId with the width,height dimensions. </p>
      * <p>After retrieving the Spritesheet, the animations stored in it can be
-     * registered in this system by calling {@link #create(String, TextureRegion[], float)}
+     * registered in this system by calling {@link #createAnimation(String, TextureRegion[], float)}
      * </p>
      *
      * <p>
@@ -139,6 +161,31 @@ public class SpriteAssetSystem extends PassiveSystem {
             return null;
 
         return sprites.get(regionId).split(width, height);
+    }
+
+
+
+
+    /**
+     * <p>Creates a spritesheet from the given textureId with the width,height dimensions. </p>
+     * <p>After retrieving the Spritesheet, the animations stored in it can be
+     * registered in this system by calling {@link #createAnimation(String, TextureRegion[], float)}
+     * </p>
+     *
+     * <p>
+     * After registering this, the animation will be available
+     * through {@link #getAnimation(String)} by providing the the given animationId.
+     * <b>The textureRegion with the given id must already be part of the registered atlases</b>
+     * </p>
+     *
+     * The animations in the spritesheet are assumed to be 1 row per animation. No padding / margin between each frame is
+     * supported at the moment
+     */
+    public TextureRegion[][] spriteSheetT(String textureId, int width, int height){
+        if (!textures.containsKey(textureId))
+            return null;
+
+        return TextureRegion.split(textures.get(textureId), width, height);
     }
 
 
@@ -159,6 +206,13 @@ public class SpriteAssetSystem extends PassiveSystem {
         for(String atlasId : atlasses.keys())
             if (ownsAtlasses.get(atlasId) == true){
                 atlasses.get(atlasId).dispose();
+            }
+        atlasses.clear();
+        ownsAtlasses.clear();
+
+        for(String tId : textures.keys())
+            if (ownsTextures.get(tId) == true){
+                textures.get(tId).dispose();
             }
         atlasses.clear();
         ownsAtlasses.clear();

@@ -1,7 +1,6 @@
 package com.xguzm.artemiscommons.components.transform;
 
 import com.artemis.PooledComponent;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.xguzm.artemiscommons.components.Tweenable;
 
@@ -25,13 +24,10 @@ public class Position extends PooledComponent implements Tweenable {
 
     public float y(){ return xy.y; }
 
-//    @Override
-//    public void linearTween(Position thiz, Position other, float value) {
-//        float x = Interpolation.linear.apply(thiz.x(), other.x(), value);
-//        float y = Interpolation.linear.apply(thiz.y(), other.y(), value);
-//
-//        thiz.xy.set(x,y);
-//    }
+    @Override
+    public int getNumComponents() {
+        return 2;
+    }
 
     @Override
     public void setTweenableValues(float[] newValues) {

@@ -2,7 +2,6 @@ package com.xguzm.artemiscommons.systems.rendering;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
-import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,8 +14,8 @@ import com.xguzm.artemiscommons.components.transform.Position;
 import com.xguzm.artemiscommons.components.transform.Rotation;
 import com.xguzm.artemiscommons.components.transform.Size;
 import com.xguzm.artemiscommons.systems.CameraSystem;
-import com.xguzm.artemiscommons.systems.sprite.SpriteAssetSystem;
 import com.xguzm.artemiscommons.systems.base.OrderedEntityProcessingSystem;
+import com.xguzm.artemiscommons.systems.sprite.SpriteAssetSystem;
 
 import java.util.Comparator;
 
@@ -60,7 +59,7 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
     };
 
     @SuppressWarnings("unchecked")
-    protected SpriteAssetRenderingSystem(SpriteBatch batch) {
+    public SpriteAssetRenderingSystem(SpriteBatch batch) {
         super(Aspect.all(Position.class, Sprite.class, Size.class).exclude(Invisible.class));
         setComparator(comparator);
         this.batch = batch;

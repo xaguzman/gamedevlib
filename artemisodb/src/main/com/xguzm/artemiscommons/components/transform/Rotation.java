@@ -1,8 +1,6 @@
 package com.xguzm.artemiscommons.components.transform;
 
 import com.artemis.PooledComponent;
-import com.badlogic.gdx.math.Interpolation;
-import com.xguzm.artemiscommons.components.Tween;
 import com.xguzm.artemiscommons.components.Tweenable;
 
 /**
@@ -17,6 +15,11 @@ public class Rotation extends PooledComponent implements Tweenable {
     @Override
     protected void reset() {
         angle = 0;
+    }
+
+    @Override
+    public int getNumComponents() {
+        return 1;
     }
 
     @Override
