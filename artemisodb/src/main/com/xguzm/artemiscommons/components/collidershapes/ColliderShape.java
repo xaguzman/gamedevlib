@@ -2,15 +2,11 @@ package com.xguzm.artemiscommons.components.collidershapes;
 
 import com.badlogic.gdx.math.Vector2;
 
-import static com.badlogic.gdx.utils.Align.right;
-
 /**
  * Created by gdlxguzm on 3/28/2017.
  */
 public abstract class ColliderShape {
     protected Vector2 position = new Vector2();
-    protected float width, height, bottom, left;
-
     public boolean collidesWith(ColliderShape other){
         if (other instanceof RectangleCollider){
             return collidesWith((RectangleCollider)other);

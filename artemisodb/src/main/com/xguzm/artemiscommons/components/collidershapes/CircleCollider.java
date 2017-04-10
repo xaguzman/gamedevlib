@@ -19,13 +19,7 @@ public class CircleCollider extends ColliderShape{
     }
 
     public CircleCollider(float radius, float x, float y){
-
-    }
-
-    public CircleCollider(float radius, float x, float y, float left, float bottom){
         this.radius = radius;
-        this.left = left;
-        this.bottom = bottom;
         position.set(x, y);
     }
 
@@ -64,69 +58,69 @@ public class CircleCollider extends ColliderShape{
 
     @Override
     public float getTop() {
-        return bottom + radius;
+        return position.y + radius;
     }
 
     @Override
     public void setTop(float top) {
-        bottom = top - radius;
+        position.y = top - radius;
         setCircle();
     }
 
     @Override
     public float getBottom() {
-        return bottom;
+        return position.y;
     }
 
     @Override
     public void setBottom(float bottom) {
-        this.bottom = bottom;
+        position.y = bottom + radius;
         setCircle();
     }
 
     @Override
     public float getLeft() {
-        return left;
+        return position.x - radius;
     }
 
     @Override
     public void setLeft(float left) {
-        this.left = left;
+        position.x = left + radius;
         setCircle();
     }
 
     @Override
     public float getRight() {
-        return left + radius;
+        return position.x + radius;
     }
 
     @Override
     public void setRight(float right) {
-        this.left = right - radius;
+        position.x = right - radius;
         setCircle();
     }
 
     @Override
     public void centerX() {
-        setLeft(-radius);
-        setCircle();
+//        setLeft(-radius);
+//        setCircle();
     }
 
     @Override
     public void centerY() {
-        setBottom(-radius);
-        setCircle();
+//        setBottom(-radius);
+//        setCircle();
     }
 
     @Override
     public void center() {
-        left = -radius;
-        bottom = -radius;
-        setCircle();
+//        position.x = -radius;
+//        bottom = -radius;
+//        setCircle();
     }
 
     private void setCircle(){
-        bounds.setPosition( position.x + left, position.y + bottom);
+        bounds.setPosition( position.x, position.y);
         bounds.setRadius(radius);
     }
 

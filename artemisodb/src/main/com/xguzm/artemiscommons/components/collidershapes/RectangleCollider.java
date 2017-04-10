@@ -11,21 +11,16 @@ import com.badlogic.gdx.math.Vector2;
 public class RectangleCollider extends ColliderShape{
 
     Rectangle bounds = new Rectangle();
+    private float width, height;
 
 
     public RectangleCollider(float width, float height){
         this(width, height, 0, 0);
     }
 
-    public RectangleCollider(float width, float height, float x, float y){
-        this(width, height, x, y, 0, 0);
-    }
-
-    public RectangleCollider(float width, float height, float x, float y, float left, float bottom){
+    public RectangleCollider(float x, float y, float width, float height){
         this.width = width;
         this.height = height;
-        this.left = left;
-        this.bottom = bottom;
         position.set(x, y);
     }
 
@@ -46,33 +41,33 @@ public class RectangleCollider extends ColliderShape{
 
     @Override
     public float getLeft() {
-        return left;
+        return position.x;
     }
 
     @Override
     public float getTop() {
-        return bottom + height;
+        return position.y + height;
     }
 
     @Override
     public float getRight(){
-        return left + width;
+        return position.x + width;
     }
 
     @Override
     public float getBottom() {
-        return bottom;
+        return position.y;
     }
 
     @Override
     public void setBottom(float bottom) {
-        this.bottom = bottom;
+        position.y = bottom;
         setRect();
     }
 
     @Override
     public void setRight(float right) {
-        left = right - width;
+        position.x = right - width;
         setRect();
     }
 
@@ -88,20 +83,20 @@ public class RectangleCollider extends ColliderShape{
 
     @Override
     public void center() {
-        left = -(width / 2);
-        bottom = -(height / 2);
+        position.x = -(width / 2);
+        position.y = -(height / 2);
         setRect();
     }
 
     @Override
     public void setLeft(float left) {
-        this.left = left;
+        position.x = left;
         setRect();
     }
 
     @Override
     public void setTop(float top) {
-        bottom = top - height;
+        position.y = top - height;
         setRect();
     }
 
@@ -135,7 +130,7 @@ public class RectangleCollider extends ColliderShape{
 
     /** helper to determine the a collision, world units */
     private void setRect() {
-        bounds.setPosition(position.x + left, position.y + bottom);
+        bounds.setPosition(position.x, position.y);
         bounds.setSize(width, height);
     }
 }
