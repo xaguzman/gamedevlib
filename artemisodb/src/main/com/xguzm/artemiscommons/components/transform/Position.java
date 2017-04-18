@@ -10,6 +10,7 @@ import com.xguzm.artemiscommons.components.Tweenable;
 public class Position extends PooledComponent implements Tweenable {
 
     public final Vector2 xy = new Vector2();
+    public final Vector2 prev = new Vector2();
 
     @Override
     protected void reset() {

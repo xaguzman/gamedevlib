@@ -42,12 +42,15 @@ public abstract class ColliderShape {
         return position;
     }
 
+
     /**
      * The absolute xy of the collider, in world units
      * */
     public void setPosition(Vector2 position) {
         this.position = position;
     }
+
+    abstract public void move(Vector2 delta);
 
     /**
      * The absolute xy of the collider, in world units

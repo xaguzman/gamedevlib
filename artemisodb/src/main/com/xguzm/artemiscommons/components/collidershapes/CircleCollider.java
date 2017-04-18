@@ -2,6 +2,7 @@ package com.xguzm.artemiscommons.components.collidershapes;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Collider with circle shape, where it's xy is absolute (world xy).
@@ -117,6 +118,23 @@ public class CircleCollider extends ColliderShape{
 //        position.x = -radius;
 //        bottom = -radius;
 //        setCircle();
+    }
+
+    @Override
+    public void setPosition(Vector2 position) {
+        setPosition(position.x, position.y);
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
+        setCircle();
+    }
+
+    @Override
+    public void move(Vector2 delta) {
+        position.add(delta);
+        setCircle();
     }
 
     private void setCircle(){

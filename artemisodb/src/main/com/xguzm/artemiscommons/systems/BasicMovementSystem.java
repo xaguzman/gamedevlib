@@ -36,6 +36,7 @@ public class BasicMovementSystem extends EntityProcessingSystem {
         scaledVelocity.set(velocity.xy);
         nextPosition.set(position.xy).add(scaledVelocity);
 
+        position.prev.set(position.xy);
         position.xy.set(nextPosition);
     }
 }

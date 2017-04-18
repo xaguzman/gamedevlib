@@ -22,15 +22,18 @@ public class RectangleCollider extends ColliderShape{
         this.width = width;
         this.height = height;
         position.set(x, y);
+        setRect();
     }
 
     @Override
     protected boolean collidesWith(RectangleCollider rect) {
+        setRect();
         return this.bounds.overlaps(rect.bounds);
     }
 
     @Override
     protected boolean collidesWith(CircleCollider circle) {
+        setRect();
         return Intersector.overlaps(circle.bounds, this.bounds);
     }
 
@@ -125,6 +128,12 @@ public class RectangleCollider extends ColliderShape{
     @Override
     public void setPosition(float x, float y) {
         super.setPosition(x, y);
+        setRect();
+    }
+
+    @Override
+    public void move(Vector2 delta) {
+        position.add(delta);
         setRect();
     }
 

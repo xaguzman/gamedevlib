@@ -5,11 +5,13 @@ import com.artemis.ComponentMapper;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntMap;
 import com.xguzm.artemiscommons.components.Collider;
-import com.xguzm.artemiscommons.components.transform.Position;
 import com.xguzm.artemiscommons.components.Velocity;
+import com.xguzm.artemiscommons.components.transform.Origin;
+import com.xguzm.artemiscommons.components.transform.Position;
 
 /**
  * Created by gdlxguzm on 3/28/2017.
@@ -20,6 +22,8 @@ public class SpatialHashgridSystem extends IteratingSystem {
     @Wire ComponentMapper<Collider> colMapper;
     @Wire ComponentMapper<Velocity> velMapper;
     @Wire ComponentMapper<Position> posMapper;
+    @Wire ComponentMapper<Origin> originMapper;
+    private final Vector2 movementDelta = new Vector2();
 
     private int cellSize, rows, cols;
 
@@ -72,10 +76,10 @@ public class SpatialHashgridSystem extends IteratingSystem {
     }
 
     private void calcCollisionArea(Collider bounds){
-        float left = bounds.shape.getPosition().x + bounds.shape.getLeft();
-        float bottom = bounds.shape.getPosition().y + bounds.shape.getBottom();
-        float top = bottom + bounds.shape.getHeight();
-        float right = left + bounds.shape.getWidth();
+        float left = bounds.getLeft();
+        float bottom = bounds.getBottom();
+        float top = bounds.getTop();
+        float right = bounds.getRight();
 
         boundsArea.set(
                 Math.max(0, MathUtils.floor(left / cellSize)),
@@ -135,7 +139,7 @@ public class SpatialHashgridSystem extends IteratingSystem {
 
     public IntArray getPotentialCollidersIds(int entityId, boolean includeDynamic, boolean includeStatic) {
         // Retrieve the list of collide-able entities
-        potentialColliders.clear();
+        potentialCollidersIds.clear();
         // Calculate the positions again
 
         Collider collision = colMapper.get(entityId);
@@ -153,7 +157,7 @@ public class SpatialHashgridSystem extends IteratingSystem {
                     for (int i = 0; i < cell.size; i++) {
                         int retrieved = cell.get(i);
                         // Avoid duplicate entries
-                        if (!potentialCollidersIds.contains(retrieved))
+                        if (!potentialCollidersIds.contains(retrieved) && retrieved != entityId)
                             potentialCollidersIds.add(retrieved);
                     }
                 }
@@ -247,7 +251,8 @@ public class SpatialHashgridSystem extends IteratingSystem {
 
         Collider col = colMapper.get(entityId);
         Position pos = posMapper.get(entityId);
-        col.shape.setPosition(pos.xy);;
+        movementDelta.set(pos.xy).sub(pos.prev);
+        col.shape.move(movementDelta);
         addDynamicEntity(entityId, col);
     }
 

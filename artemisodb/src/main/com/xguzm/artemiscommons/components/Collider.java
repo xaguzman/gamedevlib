@@ -9,7 +9,8 @@ import com.xguzm.artemiscommons.components.collidershapes.ColliderShape;
 public class Collider extends PooledComponent {
 
     public ColliderShape shape;
-    public int categoryBits, categoryMaskBits;
+    public int categoryBits = 1, categoryMaskBits = 1;
+    public boolean isBullet;
 
     public Collider(){}
 
@@ -20,6 +21,8 @@ public class Collider extends PooledComponent {
     @Override
     protected void reset() {
         shape = null;
+        isBullet = false;
+        categoryBits = categoryMaskBits = 1;
     }
 
     public float getLeft(){
