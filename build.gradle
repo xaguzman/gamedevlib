@@ -5,7 +5,7 @@ buildscript{
     }
 }
 
-allprojects{
+subprojects{
     apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
@@ -17,8 +17,6 @@ allprojects{
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 
     }
-
-
 
    /** needed to disable Java 8 doclint which throws errors **/
     if (JavaVersion.current().isJava8Compatible()) {
@@ -61,9 +59,17 @@ subprojects{
     buildDir = rootProject.buildDir
 }
 
+project(":commons"){
+    dependencies {
+
+        testCompile 'junit:junit:4.10'
+    }
+}
+
 project(':libgdx'){
 
     dependencies {
+        compile project(":commons")
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
 
         testCompile 'junit:junit:4.10'
@@ -72,10 +78,10 @@ project(':libgdx'){
     }
 }
 
-
 project(':artemisodb'){
 
     dependencies {
+        compile project(":commons")
         compile project(":libgdx")
         compile "net.onedaybeard.artemis:artemis-odb:$artemisVersion"
 
@@ -85,9 +91,18 @@ project(':artemisodb'){
     }
 }
 
-tasks.eclipse.doLast {
-    delete ".project"
+project(':ai'){
+    dependencies{
+        compile project(":commons")
+        compile project(":libgdx")
+
+        testCompile 'junit:junit:4.10'
+    }
 }
+
+//tasks.eclipse.doLast {
+//    delete ".project"
+//}
 
 if (JavaVersion.current().isJava8Compatible()) {
     allprojects {

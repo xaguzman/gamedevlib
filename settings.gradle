@@ -1,3 +1,4 @@
-include 'libgdx', 'artemisodb'
-rootProject.name = 'gamedev-lib'
+include 'libgdx', 'artemisodb', 'ai', 'commons'
+//rootProject.name = 'gamedev-lib'
+
 
