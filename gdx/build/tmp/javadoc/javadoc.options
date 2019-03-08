@@ -1,0 +1,11 @@
+-Xdoclint:none '-quiet'
+-classpath 'C:\\Users\\gdlxguzm\\Documents\\Code\\personal\\libgdx\\gamedevlib_new\\gdx\\build\\classes\\java\\main;C:\\Users\\gdlxguzm\\Documents\\Code\\personal\\libgdx\\gamedevlib_new\\gdx\\build\\resources\\main;C:\\Users\\gdlxguzm\\.gradle\\caches\\modules-2\\files-2.1\\com.badlogicgames.gdx\\gdx\\1.9.9\\bf26f2f816b3cfe37ac6e66615391c30714b7030\\gdx-1.9.9.jar'
+-d 'C:\\Users\\gdlxguzm\\Documents\\Code\\personal\\libgdx\\gamedevlib_new\\gdx\\build\\docs\\javadoc'
+-doctitle 'gdx 0.1.4-SNAPSHOT API'
+-quiet 
+-windowtitle 'gdx 0.1.4-SNAPSHOT API'
+'C:\\Users\\gdlxguzm\\Documents\\Code\\personal\\libgdx\\gamedevlib_new\\gdx\\src\\main\\java\\com\\badlogic\\gdx\\scenes\\scene2d\\ui\\RateMyAppDialog.java'
+'C:\\Users\\gdlxguzm\\Documents\\Code\\personal\\libgdx\\gamedevlib_new\\gdx\\src\\main\\java\\com\\badlogic\\gdx\\scenes\\scene2d\\ui\\TitleBarWindow.java'
+'C:\\Users\\gdlxguzm\\Documents\\Code\\personal\\libgdx\\gamedevlib_new\\gdx\\src\\main\\java\\com\\xaguzman\\gdxcommons\\input\\InputAction.java'
+'C:\\Users\\gdlxguzm\\Documents\\Code\\personal\\libgdx\\gamedevlib_new\\gdx\\src\\main\\java\\com\\xaguzman\\gdxcommons\\input\\InputConfiguration.java'
+'C:\\Users\\gdlxguzm\\Documents\\Code\\personal\\libgdx\\gamedevlib_new\\gdx\\src\\main\\java\\com\\xaguzman\\gdxcommons\\PanZoomCameraInput.java'

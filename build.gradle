@@ -1,108 +1,106 @@
-buildscript{
-    repositories{
+import java.nio.file.Paths
+
+buildscript {
+    repositories {
         mavenLocal()
         mavenCentral()
+        jcenter()
+        google()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    }
+    dependencies {
+        classpath "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
     }
 }
 
-subprojects{
-    apply plugin: 'java'
+allprojects {
     apply plugin: 'eclipse'
     apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
 
-    repositories{
-        mavenLocal()
-        mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    sourceCompatibility = 1.6
 
+    group 'com.github.xaguzman'
+    version = '0.1.4-SNAPSHOT'
+    ext{
+        libBasename = 'gamedevlib'
+        distDir = file( Paths.get(rootProject.rootDir.path, "dist/"))
     }
+    def artifactName = "${libBasename}-${project.name}"
+    def jarname = "${artifactName}-${version}"
+    
+    
+    // jar{
+    //     destinationDir = distDir
+    // }
+    // javadoc.options.addStringOption('Xdoclint:none', '-quiet')
 
-   /** needed to disable Java 8 doclint which throws errors **/
-    if (JavaVersion.current().isJava8Compatible()) {
-        allprojects {
-            tasks.withType(Javadoc) {
-                options.addStringOption('Xdoclint:none', '-quiet')
-            }
-        }
-    }
-
-}
-
-ext {
-    projectVersion = '0.1.4-SNAPSHOT'
-    projectGroupId = 'com.github.xaguzman'
-    gdxVersion = '1.9.4'
-    artemisVersion = '2.0.0'
-    distDir = file('dist/')
-}
-
-
-subprojects{
-    // Binary Jar
-    jar {
-        destinationDir      = distDir
+    jar{
+        archiveName "${jarname}.jar"
+        // from sourceSets.main.allSource
+        destinationDir = distDir
     }
 
     task javadocJar(type: Jar, dependsOn:javadoc){
+        baseName =  "${jarname}"
         classifier = 'javadoc'
-        from javadoc, sourceSets.main.allSource
+        // from javadoc, sourceSets.main.allSource
         destinationDir      = distDir
     }
 
     task sourcesJar(type: Jar, dependsOn:classes){
+        baseName =  "${jarname}"
         classifier = 'sources'
-        from sourceSets.main.allSource
+        // from sourceSets.main.allSource
         destinationDir      = distDir
     }
 
-    buildDir = rootProject.buildDir
-}
+    signing {
+        // sign publishing.publications.maven
+        sign configurations.archives
+    }
 
-project(":commons"){
-    dependencies {
+    publishing {
+        repositories {
+            maven {
+                name = 'FileRepo'
+                url = "file://${distDir}/repo"
+            }
+            maven{
+                name 'Nexus'
+                credentials {
+                    username ossrhUsername
+                    password ossrhPassword
+                }
 
-        testCompile 'junit:junit:4.10'
+                def releaseRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                def snapshotRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+                 
+                url = version.endsWith("SNAPSHOT") ? snapshotRepoUrl : releasesRepoUrl
+             }
+        }
+
+        publications {
+            maven(MavenPublication) {
+                groupId = group
+                artifactId = artifactName
+                version = version
+
+                from components.java
+
+                artifact sourcesJar
+                artifact javadocJar
+            }
+            println configurations.runtime.allDependencies
+        }
+    }
+
+    signing {
+        sign publishing.publications.maven
     }
 }
-
-project(':libgdx'){
-
-    dependencies {
-        compile project(":commons")
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-
-        testCompile 'junit:junit:4.10'
-        testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        testCompile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-    }
-}
-
-project(':artemisodb'){
-
-    dependencies {
-        compile project(":commons")
-        compile project(":libgdx")
-        compile "net.onedaybeard.artemis:artemis-odb:$artemisVersion"
-
-        testCompile 'junit:junit:4.10'
-        testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        testCompile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-    }
-}
-
-project(':ai'){
-    dependencies{
-        compile project(":commons")
-        compile project(":libgdx")
-
-        testCompile 'junit:junit:4.10'
-    }
-}
-
-//tasks.eclipse.doLast {
-//    delete ".project"
-//}
 
 if (JavaVersion.current().isJava8Compatible()) {
     allprojects {
@@ -111,3 +109,125 @@ if (JavaVersion.current().isJava8Compatible()) {
         }
     }
 }
+
+subprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    }
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+    def subprojectName = "${libBasename}-${project.name}"
+    def jarname = "${subprojectName}-${version}"
+    eclipse.project.name = subprojectName
+
+    jar{
+        from sourceSets.main.output
+    }
+
+    javadocJar {
+        from javadoc, sourceSets.main.output
+    }
+
+    sourcesJar{
+        from sourceSets.main.allSource
+    }
+
+    
+}
+
+// Clearing Eclipse project data in root folder:
+tasks.eclipse.doLast {
+    delete '.project'
+    delete '.classpath'
+    delete '.settings/'
+}
+
+
+
+
+/****************************************
+ * Single library jar containing all sub projects
+ ****************************************/
+//apply plugin: 'java'
+
+subprojects.each { subproject -> evaluationDependsOn( subproject.path ) }
+jar.dependsOn subprojects.tasks['classes']
+
+jar{
+    subprojects.each { subproject ->
+         from subproject.sourceSets.main.output
+    }
+}
+
+javadocJar{
+    subprojects.each { subproject ->
+         from subproject.javadoc, subproject.sourceSets.main.output
+    }
+}
+
+sourcesJar{
+    subprojects.each { subproject ->
+         from subproject.sourceSets.main.allSource
+    }
+}
+// jar {
+//     archiveName "${mainProjectName}-${version}.jar"
+
+//     subprojects.each { subproject ->
+//         from subproject.sourceSets.main.allSource
+//     }
+// }
+
+// task javadocJar(type: Jar, dependsOn:javadoc){
+//     baseName =  "${project.name}"
+//     classifier = 'javadoc'
+    
+//     subprojects.each { subproject ->
+//         from subproject.javadoc, subproject.sourceSets.main.allSource
+//     }
+// }
+
+// task sourcesJar(type: Jar, dependsOn:classes){
+//     baseName =  "${project.name}"
+//     classifier = 'sources'
+//     subprojects.each { subproject ->
+//         from subproject.sourceSets.main.allSource
+//     }
+//     from sourceSets.main.allSource
+//     destinationDir      = distDir
+// }
+
+
+// publishing {
+//     repositories {
+//         maven{
+//             name = 'FileRepo'
+//             url = "file://${distDir}/repo"
+//         }
+//         // maven{
+//         //     name = 'Repository'
+//         //     url = repoUrl
+//         // }
+//         // maven{
+//         //     name = 'Snapshot Repository'
+//         //     url = repoSnapshotUrl
+//         // }
+//     }
+
+//     publications {
+//         maven(MavenPublication) {
+//             groupId = group
+//             artifactId = mainProjectName
+//             version = version
+
+//             from components.java
+
+//             artifact sourcesJar
+//             artifact javadocJar
+//         }
+//         println configurations.runtime.allDependencies
+//     }
+//     }

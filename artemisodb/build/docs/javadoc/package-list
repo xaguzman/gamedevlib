@@ -1,0 +1,9 @@
+com.xaguzman.artemiscommons.components
+com.xaguzman.artemiscommons.components.collidershapes
+com.xaguzman.artemiscommons.components.transform
+com.xaguzman.artemiscommons.events
+com.xaguzman.artemiscommons.managers
+com.xaguzman.artemiscommons.systems
+com.xaguzman.artemiscommons.systems.base
+com.xaguzman.artemiscommons.systems.rendering
+com.xaguzman.artemiscommons.systems.sprite
