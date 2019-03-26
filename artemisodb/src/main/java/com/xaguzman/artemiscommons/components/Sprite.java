@@ -13,7 +13,7 @@ import com.xaguzman.artemiscommons.systems.sprite.SpriteAssetSystem;
  */
 @PooledWeaver
 public class Sprite extends Component {
-    /** The name or id of this sprite. If not set, a {@link SpriteAnimator } should be set so the {@link #asset} can be retrieved  */
+    /** The name or id of this sprite. If not set, a {@link SpriteAnimator } should be set so the asset can be retrieved  */
     public String name;
 
     /**  The layer to draw the sprite, lower values go at the back */

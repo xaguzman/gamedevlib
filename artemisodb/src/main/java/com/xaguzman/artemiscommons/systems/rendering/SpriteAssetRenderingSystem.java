@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.xaguzman.artemiscommons.components.Invisible;
 import com.xaguzman.artemiscommons.components.Sprite;
+import com.xaguzman.artemiscommons.components.SpriteAsset;
 import com.xaguzman.artemiscommons.components.Tint;
 import com.xaguzman.artemiscommons.components.transform.Origin;
 import com.xaguzman.artemiscommons.components.transform.Position;
@@ -30,6 +31,7 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
     @Wire CameraSystem cameraSystem;
     @Wire ComponentMapper<Position> posMapper;
     @Wire ComponentMapper<Sprite> spriteMapper;
+    @Wire ComponentMapper<SpriteAsset> spriteAssetMapper;
     @Wire ComponentMapper<Size> sizeMapper;
     @Wire ComponentMapper<Origin> originMapper;
     @Wire ComponentMapper<Tint> tintMapper;
@@ -60,7 +62,7 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
 
     @SuppressWarnings("unchecked")
     public SpriteAssetRenderingSystem(SpriteBatch batch) {
-        super(Aspect.all(Position.class, Sprite.class, Size.class).exclude(Invisible.class));
+        super(Aspect.all(Position.class, SpriteAsset.class, Size.class).exclude(Invisible.class));
         setComparator(comparator);
         this.batch = batch;
     }
@@ -88,7 +90,7 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
             return;
         }
 
-        Sprite spr = spriteMapper.get(entityId);
+        SpriteAsset spr = spriteAssetMapper.get(entityId);
         Origin eOrigin = originMapper.getSafe(entityId, Origin.DEFAULT);
         Tint eTint = tintMapper.getSafe(entityId, Tint.WHITE);
         Rotation eRot = rotationMapper.getSafe(entityId, Rotation.NONE);
