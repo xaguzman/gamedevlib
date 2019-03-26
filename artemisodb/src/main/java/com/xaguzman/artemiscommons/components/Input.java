@@ -1,18 +1,16 @@
 package com.xaguzman.artemiscommons.components;
 
+import com.artemis.Component;
 import com.artemis.PooledComponent;
+import com.artemis.annotations.PooledWeaver;
 
 /** Used to store user input and puts it in an int. Also stores user's actions on previous frame */
-public class Input extends PooledComponent {
+@PooledWeaver
+public class Input extends Component {
     public int previousActions;
     public int currentActions;
 
     public Input(){ }
-
-    @Override
-    protected void reset() {
-
-    }
 
     public boolean isActionActive(int action){
         return (currentActions & action) != 0;

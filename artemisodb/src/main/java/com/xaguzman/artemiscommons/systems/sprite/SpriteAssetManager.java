@@ -4,6 +4,9 @@ import com.artemis.*;
 import com.artemis.annotations.Wire;
 import com.artemis.utils.IntBag;
 import com.xaguzman.artemiscommons.components.Sprite;
+import com.xaguzman.artemiscommons.components.SpriteAsset;
+import com.xaguzman.artemiscommons.components.transform.Size;
+import com.xaguzman.artemiscommons.managers.AssetManager;
 import com.xaguzman.artemiscommons.systems.base.PassiveSystem;
 
 import static com.artemis.Aspect.all;
@@ -12,41 +15,23 @@ import static com.artemis.Aspect.all;
  * Retrieves a libgdx sprite from the {@link SpriteAssetSystem} IF the Sprite component has an Id / name
  * Created by gdlxguzm on 4/3/2017.
  */
-public class SpriteAssetManager extends PassiveSystem{
+public class SpriteAssetManager extends AssetManager<Sprite, SpriteAsset> {
 
     @Wire SpriteAssetSystem spriteAssets;
-    @Wire ComponentMapper<Sprite> spriteMapper;
+    ComponentMapper<Size> sizeMapper;
+
+
+    public SpriteAssetManager() {
+        super(Sprite.class, SpriteAsset.class);
+    }
 
     @Override
-    protected void initialize() {
-        world.getAspectSubscriptionManager()
-                .get(all(Sprite.class))
-                .addSubscriptionListener(new EntitySubscription.SubscriptionListener() {
-                    @Override
-                    public void inserted(IntBag entities) {
-                        int[] ids = entities.getData();
-                        for(int i =0; i < ids.length; i++){
-                            setSpriteAsset(ids[i]);
-                        }
-                    }
+    protected void setup(int entityId, Sprite sprite, SpriteAsset spriteAsset) {
+        spriteAsset.asset = spriteAssets.getSprite(sprite.name);
 
-                    @Override
-                    public void removed(IntBag entities) {
-                    }
-                });
-    }
-
-    private void setSpriteAsset(int entityId) {
-        Sprite sprite = spriteMapper.get(entityId);
-
-        if (!isNullOrEmpty(sprite.name) && sprite.asset == null){
-            sprite.asset = spriteAssets.getSprite(sprite.name);
+        if (!sizeMapper.has(entityId)){
+//            Size s = sizeMapper.get(entityId);
+            sizeMapper.create(entityId).xy.set(spriteAsset.asset.getWidth(), spriteAsset.asset.getHeight());
         }
-    }
-
-    private boolean isNullOrEmpty(String value){
-        if (value == null)
-            return true;
-        return value.trim().length() == 0;
     }
 }

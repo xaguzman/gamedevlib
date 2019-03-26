@@ -1,11 +1,14 @@
 package com.xaguzman.artemiscommons.components;
 
+import com.artemis.Component;
 import com.artemis.PooledComponent;
+import com.artemis.annotations.PooledWeaver;
 
 /**
  * Created by gdlxguzm on 6/6/2015.
  */
-public class Expiration extends PooledComponent {
+@PooledWeaver
+public class Expiration extends Component {
     public float timeLeft;
 
     public Expiration() {}
@@ -14,8 +17,4 @@ public class Expiration extends PooledComponent {
         this.timeLeft = time;
     }
 
-    @Override
-    protected void reset() {
-        timeLeft = 0;
-    }
 }

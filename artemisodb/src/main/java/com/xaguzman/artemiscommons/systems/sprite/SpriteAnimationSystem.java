@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.xaguzman.artemiscommons.components.Sprite;
 import com.xaguzman.artemiscommons.components.SpriteAnimator;
+import com.xaguzman.artemiscommons.components.SpriteAsset;
 
 /**
  * Created by gdlxguzm on 4/3/2017.
@@ -17,26 +18,28 @@ public class SpriteAnimationSystem extends IteratingSystem {
     @Wire SpriteAssetSystem spriteAssets;
     @Wire ComponentMapper<SpriteAnimator> animMapper;
     @Wire ComponentMapper<Sprite> imgMapper;
+    @Wire ComponentMapper<SpriteAsset> assetMapper;
 //    @Wire ComponentMapper<Facing> facingMapper;
 
     public SpriteAnimationSystem() {
-        super(Aspect.all(Sprite.class, SpriteAnimator.class));
+        super(Aspect.all(Sprite.class, SpriteAnimator.class, SpriteAsset.class));
     }
 
     @Override
     protected void process(int entityId) {
         SpriteAnimator animator = animMapper.get(entityId);
         Sprite sprite = imgMapper.get(entityId);
+        SpriteAsset asset = assetMapper.get(entityId);
 
         animator.stateTime += world.delta;
         String animationName = animator.getFullAnimationName();
 
-        Animation anim = spriteAssets.getAnimation(animationName);
+        Animation<com.badlogic.gdx.graphics.g2d.Sprite> anim = spriteAssets.getAnimation(animationName);
 
         if (anim != null){
             anim.setPlayMode(animator.playMode);
             com.badlogic.gdx.graphics.g2d.Sprite keyFrame = (com.badlogic.gdx.graphics.g2d.Sprite) anim.getKeyFrame(animator.stateTime);
-            sprite.asset = keyFrame;
+            asset.asset = keyFrame;
         }else{
             Gdx.app.debug("SpriteAnimationSystem", "Animation '" + animationName + "' not found");
         }

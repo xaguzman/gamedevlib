@@ -1,18 +1,15 @@
 package com.xaguzman.artemiscommons.components;
 
+import com.artemis.Component;
 import com.artemis.PooledComponent;
+import com.artemis.annotations.PooledWeaver;
 
 /**
  * Created by gdlxguzm on 4/3/2017.
  */
-public class Label extends PooledComponent {
+@PooledWeaver
+public class Label extends Component {
     public String fontName;
     public String text;
 
-
-    @Override
-    protected void reset() {
-        fontName = null;
-        text = null;
-    }
 }

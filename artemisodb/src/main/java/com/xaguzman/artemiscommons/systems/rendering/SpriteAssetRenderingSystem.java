@@ -26,8 +26,7 @@ import java.util.Comparator;
 public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
 
     private final SpriteBatch batch;
-    @Wire
-    SpriteAssetSystem spriteAssets;
+    @Wire SpriteAssetSystem spriteAssets;
     @Wire CameraSystem cameraSystem;
     @Wire ComponentMapper<Position> posMapper;
     @Wire ComponentMapper<Sprite> spriteMapper;
