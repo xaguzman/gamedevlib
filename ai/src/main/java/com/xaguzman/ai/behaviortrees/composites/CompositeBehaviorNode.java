@@ -5,25 +5,39 @@ import com.xaguzman.ai.behaviortrees.BehaviorNode;
 
 public abstract class CompositeBehaviorNode implements BehaviorNode {
 
-    protected Array<BehaviorNode> children;
-    public Array<BehaviorNode> getChildren() {
-        return children;
+    public String name;
+
+    public Array<BehaviorNode> children;
+
+    public CompositeBehaviorNode(){
+        this(new Array<BehaviorNode>());
     }
 
-    protected CompositeBehaviorNode(){
-        children = new Array<BehaviorNode>();
+    public CompositeBehaviorNode(Array<BehaviorNode> children) {
+        this.children = children;
     }
 
-    protected CompositeBehaviorNode(BehaviorNode... nodes){
-        children = new Array<BehaviorNode>(nodes);
+    public CompositeBehaviorNode(BehaviorNode... children){
+        this.children = new Array<BehaviorNode>(children);
     }
 
-    public void add( BehaviorNode node ) {
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void add(BehaviorNode node){
         children.add(node);
     }
 
     @Override
     public void restart() {
-        for(BehaviorNode child : children) child.restart();
+        for (BehaviorNode child : children)
+            child.restart();
     }
 }
