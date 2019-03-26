@@ -16,12 +16,12 @@ public class Parallel extends CompositeBehaviorNode {
     /**
      * The number of successes required to consider an iteration a success
      */
-    int requiredSuccess = -1;
+    public int requiredSuccess = -1;
 
     /**
      * The number of failures required to consider an iteration a failure
      */
-    int requiredFailures = -1;
+    public int requiredFailures = -1;
 
 
     @Override

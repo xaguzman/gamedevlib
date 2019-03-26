@@ -5,7 +5,7 @@ package com.xaguzman.ai.behaviortrees.actions;
  */
 public abstract class BlackboardAction<T> extends BehaviorAction {
 
-    private T blackboard;
+    protected T blackboard;
 
     public void setBlackboard(T blackboard){
         this.blackboard = blackboard;

@@ -3,7 +3,7 @@ package com.xaguzman.ai.behaviortrees.actions;
 import com.xaguzman.ai.behaviortrees.BehaviorNodeResult;
 import com.xaguzman.ai.behaviortrees.BehaviorNode;
 
-public class DelegateAction implements BehaviorNode {
+public class DelegateAction extends BehaviorAction {
 
     protected final BehaviorNode delegate;
 

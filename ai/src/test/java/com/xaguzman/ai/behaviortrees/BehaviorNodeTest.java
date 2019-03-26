@@ -1,5 +1,6 @@
 package com.xaguzman.ai.behaviortrees;
 
+import com.xaguzman.ai.behaviortrees.actions.BehaviorAction;
 import com.xaguzman.ai.behaviortrees.actions.DelegateAction;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -11,7 +12,7 @@ public class BehaviorNodeTest {
         final float delta = 1f / 30f;
         final int[] invokeCount = {0};
 
-        BehaviorNodeResult testResult = new DelegateAction(new BehaviorNode(){
+        BehaviorNodeResult testResult = new DelegateAction(new BehaviorAction(){
 
             @Override
             public BehaviorNodeResult act(float t) {

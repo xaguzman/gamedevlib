@@ -3,10 +3,10 @@ package com.xaguzman.ai.behaviortrees.actions;
 import com.xaguzman.ai.behaviortrees.BehaviorNodeResult;
 import com.xaguzman.ai.behaviortrees.BehaviorNode;
 
-public class DelayAction implements BehaviorNode {
+public class DelayAction extends BehaviorAction {
 
     protected float timeElapsed = 0f;
-    protected float timeToWait;
+    public float timeToWait;
 
     public DelayAction(float delayDuration){
         timeToWait = delayDuration;
