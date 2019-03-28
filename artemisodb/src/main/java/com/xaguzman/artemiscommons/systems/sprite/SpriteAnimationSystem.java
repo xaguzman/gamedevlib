@@ -17,18 +17,15 @@ public class SpriteAnimationSystem extends IteratingSystem {
 
     @Wire SpriteAssetSystem spriteAssets;
     @Wire ComponentMapper<SpriteAnimator> animMapper;
-    @Wire ComponentMapper<Sprite> imgMapper;
     @Wire ComponentMapper<SpriteAsset> assetMapper;
-//    @Wire ComponentMapper<Facing> facingMapper;
 
     public SpriteAnimationSystem() {
-        super(Aspect.all(Sprite.class, SpriteAnimator.class, SpriteAsset.class));
+        super(Aspect.all(SpriteAnimator.class, SpriteAsset.class));
     }
 
     @Override
     protected void process(int entityId) {
         SpriteAnimator animator = animMapper.get(entityId);
-        Sprite sprite = imgMapper.get(entityId);
         SpriteAsset asset = assetMapper.get(entityId);
 
         animator.stateTime += world.delta;

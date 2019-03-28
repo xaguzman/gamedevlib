@@ -5,18 +5,14 @@ import com.xaguzman.ai.behaviortrees.BehaviorNodeResult;
 /**
  * Created by gdlxguzm on 5/11/2017.
  */
-public abstract class ConditionalBlackboardAction<T> extends BlackboardAction<T> {
-    @Override
-    public BehaviorNodeResult act(float delta) {
-        BehaviorNodeResult result = conditionMet() ? BehaviorNodeResult.Success : BehaviorNodeResult.Failure;
+public abstract class ConditionalBlackboardAction<T> extends ConditionalBehaviorAction {
+    protected T blackboard;
 
-        return result;
+    public void setBlackboard(T blackboard){
+        this.blackboard = blackboard;
     }
 
-    @Override
-    public void restart() {
-
+    public T getBlackboard() {
+        return blackboard;
     }
-
-    public abstract boolean conditionMet();
 }

@@ -5,7 +5,7 @@ import com.artemis.Component;
 /**
  * Makes the worldCamera to be set on the owner entity.
  *
- * NEver addAtlas to more than 1 entity
+ * NEver addA to more than 1 entity
  * Created by gdlxguzm on 4/3/2017.
  */
 public class CameraSpotlight extends Component {

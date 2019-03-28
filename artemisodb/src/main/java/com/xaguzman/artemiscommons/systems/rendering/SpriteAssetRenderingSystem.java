@@ -91,7 +91,7 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
         }
 
         SpriteAsset spr = spriteAssetMapper.get(entityId);
-        Origin eOrigin = originMapper.getSafe(entityId, Origin.DEFAULT);
+        Origin eOrigin = originMapper.getSafe(entityId, Origin.CENTER);
         Tint eTint = tintMapper.getSafe(entityId, Tint.WHITE);
         Rotation eRot = rotationMapper.getSafe(entityId, Rotation.NONE);
 

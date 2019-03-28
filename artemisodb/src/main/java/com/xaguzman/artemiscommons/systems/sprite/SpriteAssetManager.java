@@ -29,9 +29,9 @@ public class SpriteAssetManager extends AssetManager<Sprite, SpriteAsset> {
     protected void setup(int entityId, Sprite sprite, SpriteAsset spriteAsset) {
         spriteAsset.asset = spriteAssets.getSprite(sprite.name);
 
-        if (!sizeMapper.has(entityId)){
-//            Size s = sizeMapper.get(entityId);
-            sizeMapper.create(entityId).xy.set(spriteAsset.asset.getWidth(), spriteAsset.asset.getHeight());
-        }
+//        if (!sizeMapper.has(entityId)){
+////            Size s = sizeMapper.get(entityId);
+//            sizeMapper.create(entityId).xy.set(spriteAsset.asset.getWidth(), spriteAsset.asset.getHeight());
+//        }
     }
 }
