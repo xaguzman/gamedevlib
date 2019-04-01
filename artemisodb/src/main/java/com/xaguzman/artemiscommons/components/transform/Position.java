@@ -26,6 +26,11 @@ public class Position extends PooledComponent implements Tweenable {
     public float y(){ return xy.y; }
 
     @Override
+    public String toString() {
+        return xy.toString();
+    }
+
+    @Override
     public int getNumComponents() {
         return 2;
     }
