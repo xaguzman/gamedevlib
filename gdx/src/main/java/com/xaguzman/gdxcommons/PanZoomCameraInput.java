@@ -9,10 +9,12 @@ import com.badlogic.gdx.math.Vector3;
  * Created by Xavier Guzman
  */
 public class PanZoomCameraInput extends InputAdapter {
+    private float panScale;
     OrthographicCamera cam;
     Vector3 lastTouch, tmp;
 
-    public PanZoomCameraInput(OrthographicCamera cam){
+    public PanZoomCameraInput(OrthographicCamera cam, float panScale){
+        this.panScale = panScale;
         this.cam = cam;
         lastTouch = new Vector3();
         tmp = new Vector3();
@@ -28,7 +30,7 @@ public class PanZoomCameraInput extends InputAdapter {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         tmp.set(screenX, screenY, 0).sub(lastTouch).scl(-1, 1, 0).scl(cam.zoom);
-        cam.translate(tmp);
+        cam.translate(tmp.scl(panScale));
         lastTouch.set(screenX, screenY, 0);
 
         return false;
