@@ -12,13 +12,14 @@ import com.xaguzman.artemiscommons.components.Collider;
 import com.xaguzman.artemiscommons.components.collidershapes.CircleCollider;
 import com.xaguzman.artemiscommons.components.collidershapes.ColliderShape;
 import com.xaguzman.artemiscommons.components.collidershapes.RectangleCollider;
-import com.xaguzman.artemiscommons.systems.CameraSystem;
+import com.xaguzman.artemiscommons.managers.CameraManager;
 
 public class CollisionShapeRenderingSystem extends IteratingSystem {
 
     private ShapeRenderer shapeRenderer;
     @Wire ComponentMapper<Collider> colliderMapper;
-    @Wire CameraSystem camSystem;
+    @Wire
+    CameraManager camSystem;
     private Color shapesColor;
 
     public CollisionShapeRenderingSystem(){

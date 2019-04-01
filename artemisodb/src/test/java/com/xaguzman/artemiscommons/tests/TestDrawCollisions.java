@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.xaguzman.artemiscommons.components.Collider;
 import com.xaguzman.artemiscommons.components.collidershapes.RectangleCollider;
-import com.xaguzman.artemiscommons.systems.CameraSystem;
+import com.xaguzman.artemiscommons.managers.CameraManager;
 
 /**
  * Created by Xavier on 16/04/2017.
@@ -16,7 +16,7 @@ import com.xaguzman.artemiscommons.systems.CameraSystem;
 public class TestDrawCollisions extends IteratingSystem {
 	private ShapeRenderer renderer;
 	@Wire
-	CameraSystem cameras;
+    CameraManager cameras;
 	@Wire
 	ComponentMapper<Collider> colMapper;
 

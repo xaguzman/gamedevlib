@@ -11,6 +11,7 @@ import com.xaguzman.artemiscommons.components.collidershapes.RectangleCollider;
 import com.xaguzman.artemiscommons.components.transform.Position;
 import com.xaguzman.artemiscommons.events.Event;
 import com.xaguzman.artemiscommons.events.EventListener;
+import com.xaguzman.artemiscommons.managers.CameraManager;
 import com.xaguzman.artemiscommons.systems.*;
 import com.xaguzman.artemiscommons.systems.rendering.ClearScreenSystem;
 import com.xaguzman.artemiscommons.systems.rendering.CollisionShapeRenderingSystem;
@@ -52,7 +53,7 @@ public class GameDevUtilsTests {
 		public void create() {
 
 			this.world = new World(new WorldConfigurationBuilder()
-					.with(new CameraSystem())
+					.with(new CameraManager())
 					.with(new BasicMovementSystem())
 					.with(new SpatialHashgridSystem(75, 75, 3))
 					.with(new CollisionDetectionSystem())
@@ -61,7 +62,7 @@ public class GameDevUtilsTests {
 					.with(new CollisionShapeRenderingSystem())
 					.build());
 
-			world.getSystem(CameraSystem.class).create(75, 75);
+			world.getSystem(CameraManager.class).create(75, 75);
 
 			int entityId = world.create();
 

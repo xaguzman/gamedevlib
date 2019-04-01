@@ -1,5 +1,6 @@
-package com.xaguzman.artemiscommons.systems;
+package com.xaguzman.artemiscommons.managers;
 
+import com.artemis.Manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -10,7 +11,7 @@ import com.xaguzman.artemiscommons.systems.base.PassiveSystem;
  *
  * Created by xavier on 4/3/2017.
  */
-public class CameraSystem extends PassiveSystem {
+public class CameraManager extends Manager {
 
     private ObjectMap<String, OrthographicCamera> cameras;
     protected OrthographicCamera worldCamera, guiCamera;

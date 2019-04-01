@@ -16,19 +16,20 @@ import com.xaguzman.artemiscommons.components.transform.Rotation;
 import com.xaguzman.artemiscommons.components.transform.Size;
 import com.xaguzman.artemiscommons.systems.base.OrderedEntityProcessingSystem;
 import com.xaguzman.artemiscommons.systems.sprite.SpriteAssetSystem;
-import com.xaguzman.artemiscommons.systems.CameraSystem;
+import com.xaguzman.artemiscommons.managers.CameraManager;
 
 import java.util.Comparator;
 
 /**
- * Renders the entities with sprites, using the world worldCamera from {@link CameraSystem}
+ * Renders the entities with sprites, using the world worldCamera from {@link CameraManager}
  * Created by Xavier on 4/3/2017.
  */
 public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
 
     private final SpriteBatch batch;
     @Wire SpriteAssetSystem spriteAssets;
-    @Wire CameraSystem cameraSystem;
+    @Wire
+    CameraManager cameraManager;
     @Wire ComponentMapper<Position> posMapper;
     @Wire ComponentMapper<Sprite> spriteMapper;
     @Wire ComponentMapper<SpriteAsset> spriteAssetMapper;
@@ -69,7 +70,7 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
 
     @Override
     protected void begin() {
-        OrthographicCamera cam = cameraSystem.get();
+        OrthographicCamera cam = cameraManager.get();
         viewport.setSize(cam.viewportWidth * cam.zoom, cam.viewportHeight * cam.zoom);
         viewport.setPosition(cam.position.x - (viewport.width * 0.5f), cam.position.y - (viewport.height * 0.5f));
 
