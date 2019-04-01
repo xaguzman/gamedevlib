@@ -88,6 +88,15 @@ public class CameraManager extends Manager {
      * @param ydown wether the incrementing y goes down or up the screen
      */
     public void create(String id, int width, int height, boolean ydown){
+        if (id.equals("default")){
+            create(width, height, ydown);
+            return;
+        }
+        if (id.equals("gui")){
+            createGui(width, height, ydown);
+            return;
+        }
+
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(ydown, width, height);
 
@@ -99,6 +108,13 @@ public class CameraManager extends Manager {
 
     /** Retrieve the camera registered with the given id. Null if the id is not found */
     public OrthographicCamera get(String id){
+        if (id.equals("default")){
+            return get();
+        }
+        if (id.equals("gui")){
+            return getGuiCamera();
+        }
+
         if (cameras == null)
             return null;
 
