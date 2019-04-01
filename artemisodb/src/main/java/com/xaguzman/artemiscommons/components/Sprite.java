@@ -1,11 +1,7 @@
 package com.xaguzman.artemiscommons.components;
 
 import com.artemis.Component;
-import com.artemis.PooledComponent;
 import com.artemis.annotations.PooledWeaver;
-import com.xaguzman.artemiscommons.systems.sprite.SpriteAnimationSystem;
-import com.xaguzman.artemiscommons.systems.sprite.SpriteAssetManager;
-import com.xaguzman.artemiscommons.systems.sprite.SpriteAssetSystem;
 
 /**
  *
@@ -13,7 +9,7 @@ import com.xaguzman.artemiscommons.systems.sprite.SpriteAssetSystem;
  */
 @PooledWeaver
 public class Sprite extends Component {
-    /** The name or id of this sprite. If not set, a {@link SpriteAnimator } should be set so the asset can be retrieved  */
+    /** The name or id of this sprite. If not set, a {@link AnimatedSprite } should be set so the asset can be retrieved  */
     public String name;
 
     /**  The layer to draw the sprite, lower values go at the back */

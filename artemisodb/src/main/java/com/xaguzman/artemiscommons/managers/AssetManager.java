@@ -65,6 +65,8 @@ public abstract class AssetManager<A extends Component, B extends Component> ext
                         }
                     }
 
+
+
                     @Override
                     public void removed(IntBag entities) {
                     }
