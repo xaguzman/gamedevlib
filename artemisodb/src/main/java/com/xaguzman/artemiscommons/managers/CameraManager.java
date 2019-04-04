@@ -59,7 +59,7 @@ public class CameraManager extends Manager {
      * @param height viewport height
      */
     public void createGui(int width, int height){
-        create(width, height, false);
+        createGui(width, height, false);
     }
 
     /**
