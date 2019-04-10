@@ -1,7 +1,7 @@
 package com.xaguzman.artemiscommons.components;
 
 /**
- * Created by gdlxguzm on 4/4/2017.
+ * Created by Xavier Guzman on 4/4/2017.
  */
 public interface Tweenable{
 //    /**

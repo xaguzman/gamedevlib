@@ -5,7 +5,7 @@ import com.artemis.PooledComponent;
 import com.artemis.annotations.PooledWeaver;
 
 /**
- * Created by gdlxguzm on 6/6/2015.
+ * Created by Xavier Guzman on 6/6/2015.
  */
 @PooledWeaver
 public class Expiration extends Component {

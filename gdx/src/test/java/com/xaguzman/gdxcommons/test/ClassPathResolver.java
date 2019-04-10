@@ -5,7 +5,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 
 /**
- * Created by gdlxguzm on 9/27/2016.
+ * Created by Xavier Guzman on 9/27/2016.
  */
 public class ClassPathResolver implements FileHandleResolver {
     @Override

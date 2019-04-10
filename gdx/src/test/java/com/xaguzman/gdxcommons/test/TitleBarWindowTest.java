@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
- * Created by gdlxguzm on 9/27/2016.
+ * Created by Xavier Guzman on 9/27/2016.
  */
 public class TitleBarWindowTest {
 

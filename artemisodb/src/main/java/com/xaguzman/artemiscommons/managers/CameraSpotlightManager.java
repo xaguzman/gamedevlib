@@ -8,7 +8,7 @@ import com.xaguzman.artemiscommons.components.CameraSpotlight;
 /**
  * Makes sure there's never more than 1 worldCamera spotlight
  *
- * Created by gdlxguzm on 4/3/2017.
+ * Created by Xavier Guzman on 4/3/2017.
  */
 public class CameraSpotlightManager extends Manager {
 

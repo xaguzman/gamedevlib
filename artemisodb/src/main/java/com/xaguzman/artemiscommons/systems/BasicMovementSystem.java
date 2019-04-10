@@ -15,7 +15,7 @@ import com.xaguzman.artemiscommons.components.transform.Position;
  * A system which will move an entity based on it's position and its velocity(scaled).
  *
  * The movement is not restricted by any means
- * Created by gdlxguzm on 5/20/2015.
+ * Created by Xavier Guzman on 5/20/2015.
  */
 public class BasicMovementSystem extends IteratingSystem {
 

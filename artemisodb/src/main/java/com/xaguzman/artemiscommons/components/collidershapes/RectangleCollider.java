@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * A rectangle collider, with left, right, top and bottom relative to its xy (which is world units)
- * Created by gdlxguzm on 3/28/2017.
+ * Created by Xavier Guzman on 3/28/2017.
  */
 public class RectangleCollider extends ColliderShape{
 

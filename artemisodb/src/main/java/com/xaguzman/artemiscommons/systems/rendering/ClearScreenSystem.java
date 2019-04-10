@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 /**
  * Clears the screen with the desired {@link #color}
  *
- * Created by gdlxguzm on 4/3/2017.
+ * Created by Xavier Guzman on 4/3/2017.
  */
 public class ClearScreenSystem extends BaseSystem {
 

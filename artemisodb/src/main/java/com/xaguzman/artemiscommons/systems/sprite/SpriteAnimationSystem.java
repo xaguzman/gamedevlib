@@ -10,7 +10,7 @@ import com.xaguzman.artemiscommons.components.AnimatedSprite;
 import com.xaguzman.artemiscommons.components.SpriteAsset;
 
 /**
- * Created by gdlxguzm on 4/3/2017.
+ * Created by Xavier Guzman on 4/3/2017.
  */
 public class SpriteAnimationSystem extends IteratingSystem {
 
@@ -33,8 +33,9 @@ public class SpriteAnimationSystem extends IteratingSystem {
         Animation<com.badlogic.gdx.graphics.g2d.Sprite> anim = spriteAssets.getAnimation(animationName);
 
         if (anim != null){
-            com.badlogic.gdx.graphics.g2d.Sprite keyFrame = anim.getKeyFrame(animator.stateTime, animator.isLoop(animationName));
+            com.badlogic.gdx.graphics.g2d.Sprite keyFrame = anim.getKeyFrame(animator.stateTime, animator.loops);
             asset.asset = keyFrame;
+            animator.isAnimationFinished = !animator.loops && anim.isAnimationFinished(animator.stateTime);
         }else{
             Gdx.app.debug("SpriteAnimationSystem", "Animation '" + animationName + "' not found");
         }

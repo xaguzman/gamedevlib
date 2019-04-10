@@ -5,7 +5,7 @@ import com.artemis.PooledComponent;
 import com.artemis.annotations.PooledWeaver;
 
 /**
- * Created by gdlxguzm on 4/3/2017.
+ * Created by Xavier Guzman on 4/3/2017.
  */
 @PooledWeaver
 public class Label extends Component {

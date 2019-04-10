@@ -3,7 +3,7 @@ package com.xaguzman.artemiscommons.systems.base;
 import com.artemis.BaseSystem;
 
 /**
- * Created by gdlxguzm on 4/3/2017.
+ * Created by Xavier Guzman on 4/3/2017.
  */
 public class PassiveSystem extends BaseSystem {
 

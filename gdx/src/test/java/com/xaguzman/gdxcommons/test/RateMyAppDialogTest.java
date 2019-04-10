@@ -12,7 +12,7 @@ import org.junit.Test;
 import static org.junit.Assert.fail;
 
 /**
- * Created by gdlxguzm on 3/31/2017.
+ * Created by Xavier Guzman on 3/31/2017.
  */
 public class RateMyAppDialogTest {
 

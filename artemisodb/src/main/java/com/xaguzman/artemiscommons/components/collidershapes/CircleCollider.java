@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  * Collider with circle shape, where it's xy is absolute (world xy).
  *
  * It has a radius, and the middle of the radius is given by left and bottom properties.
- * Created by gdlxguzm on 3/28/2017.
+ * Created by Xavier Guzman on 3/28/2017.
  */
 public class CircleCollider extends ColliderShape{
 

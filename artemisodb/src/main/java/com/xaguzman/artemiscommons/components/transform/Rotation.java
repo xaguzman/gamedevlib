@@ -6,7 +6,7 @@ import com.artemis.annotations.PooledWeaver;
 import com.xaguzman.artemiscommons.components.Tweenable;
 
 /**
- * Created by gdlxguzm on 3/31/2017.
+ * Created by Xavier Guzman on 3/31/2017.
  */
 @PooledWeaver
 public class Rotation extends Component implements Tweenable {

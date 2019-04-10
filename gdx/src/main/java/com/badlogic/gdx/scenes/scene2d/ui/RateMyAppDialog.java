@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
- * Created by gdlxguzm on 3/31/2017.
+ * Created by Xavier Guzman on 3/31/2017.
  */
 public class RateMyAppDialog extends Dialog {
 

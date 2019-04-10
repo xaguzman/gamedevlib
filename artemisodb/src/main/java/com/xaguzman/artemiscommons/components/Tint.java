@@ -4,7 +4,7 @@ import com.artemis.PooledComponent;
 import com.badlogic.gdx.graphics.Color;
 
 /**
- * Created by gdlxguzm on 3/31/2017.
+ * Created by Xavier Guzman on 3/31/2017.
  */
 public class Tint extends PooledComponent implements Tweenable {
     public final Color color = new Color();

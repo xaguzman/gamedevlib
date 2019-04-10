@@ -15,7 +15,7 @@ import com.xaguzman.artemiscommons.components.transform.Origin;
 import com.xaguzman.artemiscommons.components.transform.Position;
 
 /**
- * Created by gdlxguzm on 3/28/2017.
+ * Created by Xavier Guzman on 3/28/2017.
  */
 @SuppressWarnings("ALL")
 public class SpatialHashgridSystem extends IteratingSystem {

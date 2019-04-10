@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * The velocity to move around the screen.
  *
- * Created by gdlxguzm on 3/21/2015.
+ * Created by Xavier Guzman on 3/21/2015.
  */
 public class Velocity extends PooledComponent implements Tweenable{
     public Vector2 xy = new Vector2();

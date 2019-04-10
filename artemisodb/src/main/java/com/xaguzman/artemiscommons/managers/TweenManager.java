@@ -9,7 +9,7 @@ import com.xaguzman.artemiscommons.components.Tween;
 
 /**
  * References the right component once a new tween is added
- * Created by gdlxguzm on 4/4/2017.
+ * Created by Xavier Guzman on 4/4/2017.
  */
 public class TweenManager extends BaseEntitySystem{
 

@@ -14,7 +14,7 @@ import com.xaguzman.artemiscommons.systems.base.PassiveSystem;
  * Stores information about static sprites, bitmapfonts and animations procedent from a TextureAtlas
  *
  *
- * Created by gdlxguzm on 4/3/2017.
+ * Created by Xavier Guzman on 4/3/2017.
  */
 public class SpriteAssetSystem extends PassiveSystem {
 
@@ -59,8 +59,8 @@ public class SpriteAssetSystem extends PassiveSystem {
     /**
      * Allows to create a duplicate of spriteName and register it under the "alias" key.
      * Useful to store transformed sprites
-     * @param spriteName
-     * @param alias
+     * @param spriteName The sprite name to load from the default atlas
+     * @param alias the alias to use for this sprite
      */
     public Sprite createSprite(String spriteName, String alias){
         Sprite spr= defaultAtlas.createSprite(spriteName);
@@ -69,10 +69,11 @@ public class SpriteAssetSystem extends PassiveSystem {
     }
 
     /**
-     * Allows to create a duplicate of spriteName and register it under the "alias" key.
+     * Allows to create a duplicate of spriteName from a specified atlas and register it under the "alias" key.
      * Useful to store transformed sprites
-     * @param spriteName
-     * @param alias
+     * @param spriteName The sprite name to load from the default atlas
+     * @param alias the alias to use for this sprite
+     * @param atlasId The alias of the texture atlas to use
      */
     public Sprite createSprite(String spriteName, String alias, String atlasId){
         Sprite spr= atlasses.get(atlasId).createSprite(spriteName);

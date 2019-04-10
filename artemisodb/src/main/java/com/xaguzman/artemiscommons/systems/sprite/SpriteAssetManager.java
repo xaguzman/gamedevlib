@@ -13,12 +13,12 @@ import static com.artemis.Aspect.all;
 
 /**
  * Retrieves a libgdx sprite from the {@link SpriteAssetSystem} IF the Sprite component has an Id / name
- * Created by gdlxguzm on 4/3/2017.
+ * Created by Xavier Guzman on 4/3/2017.
  */
 public class SpriteAssetManager extends AssetManager<Sprite, SpriteAsset> {
 
     @Wire SpriteAssetSystem spriteAssets;
-    ComponentMapper<Size> sizeMapper;
+//    ComponentMapper<Size> sizeMapper;
 
 
     public SpriteAssetManager() {

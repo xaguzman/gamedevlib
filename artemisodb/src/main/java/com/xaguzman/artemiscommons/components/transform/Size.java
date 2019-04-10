@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.xaguzman.artemiscommons.components.Tweenable;
 
 /**
- * Created by gdlxguzm on 3/31/2017.
+ * Created by Xavier Guzman on 3/31/2017.
  */
 public class Size extends PooledComponent implements Tweenable{
     public final Vector2 xy = new Vector2();

@@ -1,7 +1,7 @@
 package com.xaguzman.artemiscommons.events;
 
 /**
- * Created by gdlxguzm on 7/31/2015.
+ * Created by Xavier Guzman on 7/31/2015.
  */
 public interface EventListener {
 

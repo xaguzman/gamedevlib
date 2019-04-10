@@ -4,7 +4,7 @@ import com.artemis.PooledComponent;
 import com.xaguzman.artemiscommons.components.collidershapes.ColliderShape;
 
 /**
- * Created by gdlxguzm on 3/28/2017.
+ * Created by Xavier Guzman on 3/28/2017.
  */
 public class Collider extends PooledComponent {
 

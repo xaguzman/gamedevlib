@@ -12,41 +12,25 @@ import com.badlogic.gdx.utils.ObjectMap;
 @PooledWeaver
 public class AnimatedSprite extends Component {
 
-    /**
-     * Stores the animation names (as in a TextureAtlas animation) and keys them by an alias.
-     */
-    private ObjectMap<String, String> animations = new ObjectMap<String, String>();
-
-    /**
-     * Wether each animation is a looping animation or not.
-     */
-    private ObjectMap<String, Boolean> loops = new ObjectMap<String, Boolean>();
-
     public float stateTime;
     public String currentAnimation = "";
+    public boolean loops = false;
+    public boolean isAnimationFinished = false;
 
-    public void add(String name, String atlasAnimation){
-        animations.put(name, atlasAnimation);
-    }
 
     public void setTo(String animation){
         if ( ! animation.equals(currentAnimation)){
             currentAnimation = animation;
             stateTime = 0;
+            loops = false;
         }
     }
 
-    public void loops(String alias, boolean loops){
-        this.loops.put(alias, loops);
+    public void setToLooping(String animation){
+        if ( ! animation.equals(currentAnimation)){
+            currentAnimation = animation;
+            stateTime = 0;
+            loops = true;
+        }
     }
-
-    public void remove(String name){
-        animations.remove(name);
-        loops.remove(name);
-    }
-
-    public boolean isLoop(String name){
-        return loops.get(name, false);
-    }
-
 }

@@ -3,7 +3,7 @@ package com.xaguzman.artemiscommons.components.collidershapes;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by gdlxguzm on 3/28/2017.
+ * Created by Xavier Guzman on 3/28/2017.
  */
 public abstract class ColliderShape {
     protected Vector2 position = new Vector2();

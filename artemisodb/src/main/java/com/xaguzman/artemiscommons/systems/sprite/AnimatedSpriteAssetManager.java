@@ -18,6 +18,6 @@ public class AnimatedSpriteAssetManager extends AssetManager<AnimatedSprite, Spr
     @Override
     protected void setup(int entityId, AnimatedSprite animatedSprite, SpriteAsset spriteAsset) {
         Animation<Sprite>  anim  = spriteAssets.getAnimation(animatedSprite.currentAnimation);
-        spriteAsset.asset = anim.getKeyFrame(animatedSprite.stateTime, animatedSprite.isLoop(animatedSprite.currentAnimation));
+        spriteAsset.asset = anim.getKeyFrame(animatedSprite.stateTime, animatedSprite.loops);
     }
 }
