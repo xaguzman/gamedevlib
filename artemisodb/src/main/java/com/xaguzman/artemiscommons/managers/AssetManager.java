@@ -17,13 +17,14 @@ import com.artemis.utils.IntBag;
  * @param <A> Identifying metadata component type.
  * @param <B> Asset reference component type (typically transient).
  */
+@SkipWire
 public abstract class AssetManager<A extends Component, B extends Component> extends Manager {
 
     private final Class<A> metadataType;
     private final Class<B> referenceType;
 
-    @Wire protected ComponentMapper<A> mMetadataType;
-    @Wire protected ComponentMapper<B> mReferenceType;
+    protected ComponentMapper<A> mMetadataType;
+    protected ComponentMapper<B> mReferenceType;
 
     /**
      * @param metadataType Identifying component type.
@@ -46,6 +47,8 @@ public abstract class AssetManager<A extends Component, B extends Component> ext
     @Override
     protected void setWorld(World world) {
         super.setWorld(world);
+        mMetadataType = world.getMapper(metadataType);
+        mReferenceType = world.getMapper(referenceType);
 
         listenForResolveJobs();
         listenForCleanupJobs();

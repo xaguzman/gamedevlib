@@ -173,61 +173,24 @@ sourcesJar{
          from subproject.sourceSets.main.allSource
     }
 }
-// jar {
-//     archiveName "${mainProjectName}-${version}.jar"
 
-//     subprojects.each { subproject ->
-//         from subproject.sourceSets.main.allSource
-//     }
-// }
+task cpy(type: Copy, dependsOn: [jar, sourcesJar]){
+    def destination = "${rootDir.parent}/procedural_game/libs/"
+    print("copying gamedevlib-all to $destination")
 
-// task javadocJar(type: Jar, dependsOn:javadoc){
-//     baseName =  "${project.name}"
-//     classifier = 'javadoc'
-    
-//     subprojects.each { subproject ->
-//         from subproject.javadoc, subproject.sourceSets.main.allSource
-//     }
-// }
+    from "$distDir/gamedevlib-gamedevlib-all-${version}.jar", "$distDir/gamedevlib-gamedevlib-all-${version}-${version}-sources.jar"
 
-// task sourcesJar(type: Jar, dependsOn:classes){
-//     baseName =  "${project.name}"
-//     classifier = 'sources'
-//     subprojects.each { subproject ->
-//         from subproject.sourceSets.main.allSource
-//     }
-//     from sourceSets.main.allSource
-//     destinationDir      = distDir
-// }
+    rename { filename ->
+        if (filename == "gamedevlib-gamedevlib-all-${version}.jar"){
+            return "gamedevlib-all-${version}.jar"
+        }
+        if (filename == "gamedevlib-gamedevlib-all-${version}-${version}-sources.jar"){
+            return "gamedevlib-all-${version}-sources.jar"
+        }
+    }
+
+    into destination
 
 
-// publishing {
-//     repositories {
-//         maven{
-//             name = 'FileRepo'
-//             url = "file://${distDir}/repo"
-//         }
-//         // maven{
-//         //     name = 'Repository'
-//         //     url = repoUrl
-//         // }
-//         // maven{
-//         //     name = 'Snapshot Repository'
-//         //     url = repoSnapshotUrl
-//         // }
-//     }
 
-//     publications {
-//         maven(MavenPublication) {
-//             groupId = group
-//             artifactId = mainProjectName
-//             version = version
-
-//             from components.java
-
-//             artifact sourcesJar
-//             artifact javadocJar
-//         }
-//         println configurations.runtime.allDependencies
-//     }
-//     }
+}

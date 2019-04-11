@@ -18,6 +18,7 @@ public abstract class OrderedEntityProcessingSystem extends BaseEntitySystem {
     private Comparator<Integer> comparator;
     private Array<Integer> entities;
 
+
     protected OrderedEntityProcessingSystem(Aspect.Builder aspect){
         super(aspect);
         entities = new Array<Integer>();
@@ -39,7 +40,7 @@ public abstract class OrderedEntityProcessingSystem extends BaseEntitySystem {
 
     @Override
     public void removed(int entityId) {
-        entities.removeValue(entityId, true);
+        entities.removeValue(entityId, false);
     }
 
     @Override
