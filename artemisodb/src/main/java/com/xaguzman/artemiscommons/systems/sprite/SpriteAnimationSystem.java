@@ -33,8 +33,7 @@ public class SpriteAnimationSystem extends IteratingSystem {
         Animation<com.badlogic.gdx.graphics.g2d.Sprite> anim = spriteAssets.getAnimation(animationName);
 
         if (anim != null){
-            com.badlogic.gdx.graphics.g2d.Sprite keyFrame = anim.getKeyFrame(animator.stateTime, animator.loops);
-            asset.asset = keyFrame;
+            asset.asset = anim.getKeyFrame(animator.stateTime, animator.loops);
             animator.isAnimationFinished = !animator.loops && anim.isAnimationFinished(animator.stateTime);
         }else{
             Gdx.app.debug("SpriteAnimationSystem", "Animation '" + animationName + "' not found");

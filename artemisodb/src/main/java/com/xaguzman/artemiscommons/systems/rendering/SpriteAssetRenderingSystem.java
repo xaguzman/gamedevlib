@@ -98,6 +98,7 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
 
         com.badlogic.gdx.graphics.g2d.Sprite asset = spr.asset;
 
+
         asset.setSize(eSize.xy.x, eSize.xy.y);
         asset.setColor(eTint.color);
         asset.setOrigin(eOrigin.xy.x, eOrigin.xy.y);
