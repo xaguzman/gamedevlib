@@ -21,8 +21,6 @@ import static com.artemis.Aspect.all;
 public class SpriteAssetManager extends DualAssetManager<Sprite, AnimatedSprite, SpriteAsset> {
 
     @Wire SpriteAssetSystem spriteAssets;
-//    ComponentMapper<Size> sizeMapper;
-
 
     public SpriteAssetManager() {
         super(Sprite.class, AnimatedSprite.class, SpriteAsset.class);
@@ -31,11 +29,21 @@ public class SpriteAssetManager extends DualAssetManager<Sprite, AnimatedSprite,
     @Override
     protected void setupMeta1(int entityId, Sprite sprite, SpriteAsset spriteAsset) {
         spriteAsset.asset = spriteAssets.getSprite(sprite.name);
+        spriteAsset.layer = sprite.layer;
+        spriteAsset.offsetX = sprite.offsetX;
+        spriteAsset.offsetY = sprite.offsetY;
     }
 
     @Override
     protected void setupMeta2(int entityId, AnimatedSprite animatedSprite, SpriteAsset spriteAsset) {
         Animation<com.badlogic.gdx.graphics.g2d.Sprite> anim  = spriteAssets.getAnimation(animatedSprite.currentAnimation);
         spriteAsset.asset = anim.getKeyFrame(animatedSprite.stateTime, animatedSprite.loops);
+        spriteAsset.layer = animatedSprite.layer;
+        spriteAsset.offsetX = animatedSprite.offsetX;
+        spriteAsset.offsetY = animatedSprite.offsetY;
     }
+
+
+
+
 }

@@ -13,4 +13,8 @@ public class SpriteAsset extends Component {
      * will be set by retrieving it form the {@link SpriteAssetSystem} by the SpriteAssetManager
      * */
     public com.badlogic.gdx.graphics.g2d.Sprite asset;
+    public int layer;
+    public float offsetX = 0f;
+    public float offsetY = 0f;
+
 }

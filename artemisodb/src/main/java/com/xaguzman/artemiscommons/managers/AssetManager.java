@@ -20,8 +20,8 @@ import com.artemis.utils.IntBag;
 @SkipWire
 public abstract class AssetManager<A extends Component, B extends Component> extends Manager {
 
-    private final Class<A> metadataType;
-    private final Class<B> referenceType;
+    protected final Class<A> metadataType;
+    protected final Class<B> referenceType;
 
     protected ComponentMapper<A> mMetadataType;
     protected ComponentMapper<B> mReferenceType;
