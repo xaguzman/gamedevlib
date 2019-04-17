@@ -18,19 +18,25 @@ public class AnimatedSprite extends Component {
     public boolean isAnimationFinished = false;
 
 
+    public float offsetX = 0f;
+    public float offsetY = 0f;
+
+    /**  The layer to draw the sprite, lower values go at the back. Default is 0 */
+    public int layer;
+
     public void setTo(String animation){
-        if ( ! animation.equals(currentAnimation)){
-            currentAnimation = animation;
-            stateTime = 0;
-            loops = false;
-        }
+        setTo(animation, false);
     }
 
     public void setToLooping(String animation){
+        setTo(animation, true);
+    }
+
+    public void setTo(String animation, boolean looping){
         if ( ! animation.equals(currentAnimation)){
             currentAnimation = animation;
             stateTime = 0;
-            loops = true;
+            loops = looping;
         }
     }
 }

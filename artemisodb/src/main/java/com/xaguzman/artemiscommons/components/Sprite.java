@@ -12,7 +12,9 @@ public class Sprite extends Component {
     /** The name or id of this sprite. If not set, a {@link AnimatedSprite } should be set so the asset can be retrieved  */
     public String name;
 
-    /**  The layer to draw the sprite, lower values go at the back */
+    /**  The layer to draw the sprite, lower values go at the back. Default is 0 */
     public int layer;
 
+    public float offsetX = 0f;
+    public float offsetY = 0f;
 }

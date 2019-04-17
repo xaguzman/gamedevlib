@@ -31,7 +31,6 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
     @Wire SpriteAssetSystem spriteAssets;
     @Wire CameraManager cameraManager;
     @Wire ComponentMapper<Position> posMapper;
-    @Wire ComponentMapper<Sprite> spriteMapper;
     @Wire ComponentMapper<SpriteAsset> spriteAssetMapper;
     @Wire ComponentMapper<Size> sizeMapper;
     @Wire ComponentMapper<Origin> originMapper;
@@ -47,8 +46,8 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
     Comparator<Integer> comparator = new Comparator<Integer>() {
         @Override
         public int compare(Integer eId1, Integer eId2) {
-            Sprite img1 = spriteMapper.get(eId1);
-            Sprite img2 = spriteMapper.get(eId2);
+            SpriteAsset img1 = spriteAssetMapper.get(eId1);
+            SpriteAsset img2 = spriteAssetMapper.get(eId2);
             int layerDif = img1.layer - img2.layer;
             if (layerDif != 0)
                 return layerDif;
@@ -133,11 +132,13 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
 
         com.badlogic.gdx.graphics.g2d.Sprite asset = spr.asset;
 
-
-        asset.setSize(eSize.xy.x, eSize.xy.y);
         asset.setColor(eTint.color);
-        asset.setOrigin(eOrigin.xy.x, eOrigin.xy.y);
+        asset.setOrigin(eOrigin.x(), eOrigin.y());
         asset.setRotation(eRot.angle);
+
+        float xPos = ePos.x() + (eSize.x() * spr.offsetX);
+        float yPos = ePos.y() + (eSize.y() * spr.offsetY);
+        asset.setBounds(xPos, yPos, eSize.x(), eSize.y());
 
         asset.draw(batch);
     }

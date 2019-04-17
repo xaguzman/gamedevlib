@@ -11,11 +11,21 @@ import com.badlogic.gdx.math.Vector2;
 public class Origin extends PooledComponent {
     public final Vector2 xy = new Vector2();
 
-    /** The default origin, 0,0 */
+    public float x(){
+        return xy.x;
+    }
+
+    public float y(){
+        return xy.y;
+    }
+
+    /** Origin at 0,0 */
     public static final Origin BOTTOM_LEFT = new Origin();
+    public static final Origin BOTTOM_MIDDLE = new Origin(0.5f, 0);
+    public static final Origin BOTTOM_RIGHT = new Origin(1, 0);
 
     /**
-     * Origin at 0.5, 0.5
+     * Default origin, at 0.5, 0.5
      */
     public static final Origin CENTER = new Origin(0.5f, 0.5f);
 

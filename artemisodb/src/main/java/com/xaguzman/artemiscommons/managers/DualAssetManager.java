@@ -7,9 +7,9 @@ import com.artemis.utils.IntBag;
 @SkipWire
 public abstract class DualAssetManager<A extends Component, B extends Component, C extends Component> extends Manager {
 
-    private final Class<A> metadataType1;
-    private final Class<B> metadataType2;
-    private final Class<C> referenceType;
+    protected final Class<A> metadataType1;
+    protected final Class<B> metadataType2;
+    protected final Class<C> referenceType;
 
     protected ComponentMapper<A> mMetadataType1;
     protected ComponentMapper<B> mMetadataType2;
