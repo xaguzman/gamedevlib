@@ -24,12 +24,12 @@ import java.util.Comparator;
  * Renders the entities with sprites, using the world worldCamera from {@link CameraManager}
  * Created by Xavier on 4/3/2017.
  */
+@Wire(failOnNull = false)
 public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
 
-    private final SpriteBatch batch;
+    private SpriteBatch batch;
     @Wire SpriteAssetSystem spriteAssets;
-    @Wire
-    CameraManager cameraManager;
+    @Wire CameraManager cameraManager;
     @Wire ComponentMapper<Position> posMapper;
     @Wire ComponentMapper<Sprite> spriteMapper;
     @Wire ComponentMapper<SpriteAsset> spriteAssetMapper;
@@ -37,6 +37,9 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
     @Wire ComponentMapper<Origin> originMapper;
     @Wire ComponentMapper<Tint> tintMapper;
     @Wire ComponentMapper<Rotation> rotationMapper;
+
+    private String injectedSpriteBatchName;
+    private String cameraName = "default";
 
     private final Rectangle viewport = new Rectangle(), spriteBounds = new Rectangle();
 
@@ -61,6 +64,16 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
         }
     };
 
+    public SpriteAssetRenderingSystem(){
+        this(new SpriteBatch());
+    }
+
+    public SpriteAssetRenderingSystem(String injectedSpriteBatchName){
+        super(Aspect.all(Position.class, SpriteAsset.class, Size.class).exclude(Invisible.class));
+        setComparator(comparator);
+        this.injectedSpriteBatchName = injectedSpriteBatchName;
+    }
+
     @SuppressWarnings("unchecked")
     public SpriteAssetRenderingSystem(SpriteBatch batch) {
         super(Aspect.all(Position.class, SpriteAsset.class, Size.class).exclude(Invisible.class));
@@ -68,13 +81,35 @@ public class SpriteAssetRenderingSystem extends OrderedEntityProcessingSystem {
         this.batch = batch;
     }
 
+    /**
+     * Set the camera to use to render the sprites with. Camera must exist in the camera manager before rendering
+     * @param cameraName
+     * @return
+     */
+    public SpriteAssetRenderingSystem withCamera(String cameraName){
+        this.cameraName = cameraName;
+        return this;
+    }
+
+    @Override
+    protected void initialize() {
+        if (batch == null){
+            if (injectedSpriteBatchName != null){
+                batch = world.getRegistered(injectedSpriteBatchName);
+            }else{
+                batch = world.getRegistered(SpriteBatch.class);
+            }
+        }
+
+    }
+
     @Override
     protected void begin() {
-        OrthographicCamera cam = cameraManager.get();
+        OrthographicCamera cam = cameraManager.get(cameraName);
         viewport.setSize(cam.viewportWidth * cam.zoom, cam.viewportHeight * cam.zoom);
         viewport.setPosition(cam.position.x - (viewport.width * 0.5f), cam.position.y - (viewport.height * 0.5f));
 
-        cam.update();
+//        cam.update();
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
     }

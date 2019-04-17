@@ -1,4 +1,4 @@
-package com.xaguzman.artemiscommons.systems.sprite;
+package com.xaguzman.artemiscommons.managers;
 
 import com.artemis.*;
 import com.artemis.annotations.Wire;
@@ -11,6 +11,7 @@ import com.xaguzman.artemiscommons.components.transform.Size;
 import com.xaguzman.artemiscommons.managers.AssetManager;
 import com.xaguzman.artemiscommons.managers.DualAssetManager;
 import com.xaguzman.artemiscommons.systems.base.PassiveSystem;
+import com.xaguzman.artemiscommons.systems.sprite.SpriteAssetSystem;
 
 import static com.artemis.Aspect.all;
 
@@ -20,7 +21,8 @@ import static com.artemis.Aspect.all;
  */
 public class SpriteAssetManager extends DualAssetManager<Sprite, AnimatedSprite, SpriteAsset> {
 
-    @Wire SpriteAssetSystem spriteAssets;
+    @Wire
+    SpriteAssetSystem spriteAssets;
 //    ComponentMapper<Size> sizeMapper;
 
 

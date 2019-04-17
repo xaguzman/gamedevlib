@@ -18,9 +18,9 @@ public class CollisionShapeRenderingSystem extends IteratingSystem {
 
     private ShapeRenderer shapeRenderer;
     @Wire ComponentMapper<Collider> colliderMapper;
-    @Wire
-    CameraManager camSystem;
+    @Wire CameraManager camSystem;
     private Color shapesColor;
+    private String cameraName = "default";
 
     public CollisionShapeRenderingSystem(){
         this(new Color(0.39215687f, 0.58431375f, 0.92941177f, 0.6f));
@@ -32,9 +32,14 @@ public class CollisionShapeRenderingSystem extends IteratingSystem {
         shapeRenderer = new ShapeRenderer();
     }
 
+    public CollisionShapeRenderingSystem withCamera(String cameraName){
+        this.cameraName = cameraName;
+        return this;
+    }
+
     @Override
     protected void begin() {
-        OrthographicCamera camera = camSystem.get();
+        OrthographicCamera camera = camSystem.get(cameraName);
 
         Gdx.gl.glLineWidth(1);
         Gdx.gl.glEnable(Gdx.gl.GL_BLEND);

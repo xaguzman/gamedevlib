@@ -3,7 +3,7 @@ package com.xaguzman.artemiscommons.components;
 import com.artemis.Component;
 import com.artemis.annotations.Transient;
 import com.xaguzman.artemiscommons.systems.sprite.SpriteAnimationSystem;
-import com.xaguzman.artemiscommons.systems.sprite.SpriteAssetManager;
+import com.xaguzman.artemiscommons.managers.SpriteAssetManager;
 import com.xaguzman.artemiscommons.systems.sprite.SpriteAssetSystem;
 
 @Transient

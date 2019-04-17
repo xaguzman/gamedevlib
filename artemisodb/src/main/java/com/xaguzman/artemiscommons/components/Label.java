@@ -10,6 +10,27 @@ import com.artemis.annotations.PooledWeaver;
 @PooledWeaver
 public class Label extends Component {
     public String fontName;
-    public String text;
 
+    /**
+     * If true, an {@link #atlasName} must be provided.
+     *
+     * The atlas will be attemped to be retrieved from the sprite assets system, and then from the atlas the requested
+     * sprite will be requested for the font ({@link #fontAtlasTextureName} is the name of the texture to extract)
+     */
+    public boolean isTextureInFont;
+
+    public String atlasName;
+
+    /**
+     * The name of the texture region to use from the given {@link #atlasName}. If not provided, {@link #fontName} will be used instead
+     */
+    public String fontAtlasTextureName;
+
+    public String text;
+    /**
+     * 0 = left
+     * 0.5 = center
+     * 1 = right
+     */
+    public float align = 0;
 }
