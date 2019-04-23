@@ -57,7 +57,7 @@ public class CollisionShapeRenderingSystem extends IteratingSystem {
         switch(collider.shape.getShapeType()){
             case ColliderShape.TYPE_CIRCLE:
                 CircleCollider circle = (CircleCollider)collider.shape;
-                shapeRenderer.circle( circle.bounds.x, circle.bounds.y, circle.bounds.radius);
+                shapeRenderer.circle(circle.getPosition().x, circle.getPosition().y, circle.getRadius());
                 break;
 
             case ColliderShape.TYPE_RECTANGLE:

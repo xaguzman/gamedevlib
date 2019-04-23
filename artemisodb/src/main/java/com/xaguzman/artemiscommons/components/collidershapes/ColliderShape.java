@@ -6,16 +6,17 @@ import com.badlogic.gdx.math.Vector2;
  * Created by Xavier Guzman on 3/28/2017.
  */
 public abstract class ColliderShape {
-    protected Vector2 position = new Vector2();
+    protected final Vector2 previousPosition = new Vector2();
+    protected final Vector2 position = new Vector2();
 
     public static final int TYPE_CIRCLE = 1;
     public static final int TYPE_RECTANGLE = 2;
 
     public boolean collidesWith(ColliderShape other){
-        if (other instanceof RectangleCollider){
-            return collidesWith((RectangleCollider)other);
-        }else if(other instanceof CircleCollider){
+        if (other.getShapeType() == TYPE_CIRCLE){
             return collidesWith((CircleCollider)other);
+        }else if (other.getShapeType() == TYPE_RECTANGLE){
+            return collidesWith((RectangleCollider)other);
         }
         return false;
     }
@@ -48,15 +49,24 @@ public abstract class ColliderShape {
         return position;
     }
 
+    public Vector2 getPreviousPosition() { return previousPosition; }
 
     /**
      * The absolute xy of the collider, in world units
      * */
     public void setPosition(Vector2 position) {
-        this.position = position;
+        previousPosition.set(this.position);
+        this.position.set(position);
+        moved();
     }
 
-    abstract public void move(Vector2 delta);
+    public void move(Vector2 delta){
+        previousPosition.set(position);
+        position.add(delta);
+        moved();
+    }
+
+    abstract protected void moved();
 
     /**
      * The absolute xy of the collider, in world units

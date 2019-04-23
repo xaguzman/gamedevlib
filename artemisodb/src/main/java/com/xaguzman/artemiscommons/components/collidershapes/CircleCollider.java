@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class CircleCollider extends ColliderShape{
 
-    public Circle bounds = new Circle();
+    protected Circle bounds = new Circle();
     private float radius;
 
     public CircleCollider(float radius){
@@ -145,8 +145,7 @@ public class CircleCollider extends ColliderShape{
     }
 
     @Override
-    public void move(Vector2 delta) {
-        position.add(delta);
+    protected void moved(){
         setCircle();
     }
 

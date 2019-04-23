@@ -5,11 +5,16 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IntervalIteratingSystem;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Pool;
 import com.xaguzman.artemiscommons.components.Collider;
 import com.xaguzman.artemiscommons.components.Velocity;
+import com.xaguzman.artemiscommons.components.collidershapes.CircleCollider;
+import com.xaguzman.artemiscommons.components.collidershapes.ColliderShape;
+import com.xaguzman.artemiscommons.components.collidershapes.RectangleCollider;
 import com.xaguzman.artemiscommons.events.Event;
 
 /**
@@ -116,7 +121,50 @@ public class CollisionDetectionSystem extends IntervalIteratingSystem {
     }
 
     private boolean collisionExists(Collider c1, Collider c2) {
-        return c1.shape.collidesWith(c2.shape);
+        if (c1.shape.collidesWith(c2.shape))
+            return true;
+
+        //not overlapping, check if any requires continuous collision detection
+        if (!(c1.useContinuousDetection || c2.useContinuousDetection)){
+            // no continuous detectoin and no overlapping, not colliding!
+            return false;
+        }
+
+
+        ColliderShape fastMovingEntity, slowMovingEntity;
+        if (c1.useContinuousDetection) {
+            fastMovingEntity = c1.shape;
+            slowMovingEntity = c2.shape;
+        }else {
+            fastMovingEntity = c2.shape;
+            slowMovingEntity = c1.shape;
+        }
+
+        boolean intersectionExists = false;
+
+        switch(slowMovingEntity.getShapeType()){
+            case ColliderShape.TYPE_CIRCLE:
+                CircleCollider circleCollider = (CircleCollider)slowMovingEntity;
+                float squareRadius = circleCollider.getRadius() * circleCollider.getRadius();
+
+                intersectionExists = Intersector.intersectSegmentCircle(
+                        fastMovingEntity.getPreviousPosition(),
+                        fastMovingEntity.getPosition(),
+                        circleCollider.getPosition(),
+                        squareRadius);
+                break;
+            case ColliderShape.TYPE_RECTANGLE:
+                RectangleCollider rectCollider = (RectangleCollider)slowMovingEntity;
+                intersectionExists = Intersector.intersectSegmentRectangle(
+                        fastMovingEntity.getPreviousPosition(),
+                        slowMovingEntity.getPosition(),
+                        rectCollider.getBounds()
+                );
+                break;
+        }
+
+
+        return intersectionExists;
     }
 
     private CollisionPair getCollisionPair(int id1, int id2){

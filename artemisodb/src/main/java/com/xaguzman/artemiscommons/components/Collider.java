@@ -10,7 +10,7 @@ public class Collider extends PooledComponent {
 
     public ColliderShape shape;
     public int categoryBits = 1, categoryMaskBits = 1;
-    public boolean isBullet;
+    public boolean useContinuousDetection;
 
     public Collider(){}
 
@@ -21,7 +21,7 @@ public class Collider extends PooledComponent {
     @Override
     protected void reset() {
         shape = null;
-        isBullet = false;
+        useContinuousDetection = false;
         categoryBits = categoryMaskBits = 1;
     }
 

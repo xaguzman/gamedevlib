@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class RectangleCollider extends ColliderShape{
 
-    Rectangle bounds = new Rectangle();
+    protected Rectangle bounds = new Rectangle();
     private float width, height;
 
 
@@ -60,6 +60,10 @@ public class RectangleCollider extends ColliderShape{
     @Override
     public float getRight(){
         return position.x + width;
+    }
+
+    public Rectangle getBounds(){
+        return bounds;
     }
 
     @Override
@@ -137,8 +141,7 @@ public class RectangleCollider extends ColliderShape{
     }
 
     @Override
-    public void move(Vector2 delta) {
-        position.add(delta);
+    protected void moved(){
         setRect();
     }
 
