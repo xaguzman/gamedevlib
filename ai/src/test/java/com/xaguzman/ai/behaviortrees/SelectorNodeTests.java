@@ -1,5 +1,6 @@
 package com.xaguzman.ai.behaviortrees;
 
+import com.xaguzman.ai.behaviortrees.actions.BehaviorAction;
 import com.xaguzman.ai.behaviortrees.composites.Selector;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -18,13 +19,13 @@ public final class SelectorNodeTests {
     }
 
     public final void init() {
-        this.selectorNode.getChildren().clear();
+        this.selectorNode.children.clear();
     }
 
     @Test
     public final void stopsOnFirstSuccessOrRunning() {
         this.init();
-        BehaviorNode mockChild1 = new BehaviorNode(){
+        BehaviorNode mockChild1 = new BehaviorAction(){
             @Override
             public BehaviorNodeResult act(float delta) {
                 return BehaviorNodeResult.Failure;
@@ -33,7 +34,7 @@ public final class SelectorNodeTests {
             public void restart() { }
 
         };
-        BehaviorNode mockChild2 = new BehaviorNode(){
+        BehaviorNode mockChild2 = new BehaviorAction(){
             @Override
             public BehaviorNodeResult act(float delta) {
                 return BehaviorNodeResult.Success;
@@ -42,7 +43,7 @@ public final class SelectorNodeTests {
             public void restart() { }
 
         };
-        BehaviorNode mockChild3 = new BehaviorNode(){
+        BehaviorNode mockChild3 = new BehaviorAction(){
             @Override
             public BehaviorNodeResult act(float delta) {
                 return BehaviorNodeResult.Running;
@@ -66,7 +67,7 @@ public final class SelectorNodeTests {
     @Test
     public final void failsOnAllChildrenFail() {
         this.init();
-        BehaviorNode mockChild1 = new BehaviorNode(){
+        BehaviorNode mockChild1 = new BehaviorAction(){
             @Override
             public BehaviorNodeResult act(float delta) {
                 return BehaviorNodeResult.Failure;
@@ -75,7 +76,7 @@ public final class SelectorNodeTests {
             public void restart() { }
 
         };
-        BehaviorNode mockChild2 = new BehaviorNode(){
+        BehaviorNode mockChild2 = new BehaviorAction(){
             @Override
             public BehaviorNodeResult act(float delta) {
                 return BehaviorNodeResult.Failure;
@@ -84,7 +85,7 @@ public final class SelectorNodeTests {
             public void restart() { }
 
         };
-        BehaviorNode mockChild3 = new BehaviorNode(){
+        BehaviorNode mockChild3 = new BehaviorAction(){
             @Override
             public BehaviorNodeResult act(float delta) {
                 return BehaviorNodeResult.Failure;
