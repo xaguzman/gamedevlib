@@ -26,6 +26,9 @@ public class InputDetectionSystem extends IteratingSystem {
         this.inputConfiguration = inputCfg;
     }
 
+    public void setInputConfiguration(InputConfiguration cfg){
+        inputConfiguration = cfg;
+    }
 
     @Override
     protected void process(int entityId) {
