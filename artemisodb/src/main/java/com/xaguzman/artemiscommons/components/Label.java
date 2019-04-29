@@ -33,4 +33,9 @@ public class Label extends Component {
      * 1 = right
      */
     public float align = 0;
+
+    /**
+     * In case the text uses a different camera / viewport to draw, the position should be scaled by this factor
+     */
+    public float positionScale = 1f;
 }

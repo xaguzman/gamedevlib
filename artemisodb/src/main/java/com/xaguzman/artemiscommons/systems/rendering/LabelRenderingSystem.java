@@ -76,22 +76,25 @@ public class LabelRenderingSystem extends IteratingSystem {
         BitmapFontAsset asset = fontMapper.get(entityId);
         Tint tint = tintMapper.getSafe(entityId, Tint.WHITE);
 
+        float x = pos.x() * lbl.positionScale;
+        float y = pos.y() * lbl.positionScale;
+
         batch.setColor(tint.color);
 
         switch( MathUtils.floor(lbl.align * 2f) ){
             case 0:
                 //left
-                asset.font.draw(batch, lbl.text, pos.x(), pos.y());
+                asset.font.draw(batch, lbl.text, x, y);
                 break;
             case 1:
                 //center
                 glyphLayout.setText(asset.font, lbl.text);
-                asset.font.draw(batch, lbl.text, pos.x() - (glyphLayout.width * 0.5f), pos.y());
+                asset.font.draw(batch, lbl.text, x - (glyphLayout.width * 0.5f), y);
                 break;
             case 2:
                 //right
                 glyphLayout.setText(asset.font, lbl.text);
-                asset.font.draw(batch, lbl.text, pos.x() - glyphLayout.width, pos.y());
+                asset.font.draw(batch, lbl.text, x - glyphLayout.width, y);
                 break;
         }
     }
