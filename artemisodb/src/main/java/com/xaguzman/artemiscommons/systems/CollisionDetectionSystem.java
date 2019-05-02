@@ -6,7 +6,6 @@ import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.IntervalIteratingSystem;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Pool;
@@ -116,8 +115,8 @@ public class CollisionDetectionSystem extends IntervalIteratingSystem {
         if (collisionA == null || collisionB == null)
             return false; //could happen when an entity is removed
 
-        return (collisionA.categoryMaskBits & collisionB.categoryBits) != 0 &&
-                (collisionA.categoryBits & collisionB.categoryMaskBits) != 0;
+        return (collisionA.collisionMask & collisionB.collisionLayer) != 0 &&
+                (collisionA.collisionLayer & collisionB.collisionMask) != 0;
     }
 
     private boolean collisionExists(Collider c1, Collider c2) {
