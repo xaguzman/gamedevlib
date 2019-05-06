@@ -9,7 +9,7 @@ import com.xaguzman.artemiscommons.components.collidershapes.ColliderShape;
 public class Collider extends PooledComponent {
 
     public ColliderShape shape;
-    public int categoryBits = 1, categoryMaskBits = 1;
+    public int collisionLayer = 1, collisionMask = 1;
     public boolean useContinuousDetection;
 
     public Collider(){}
@@ -22,7 +22,7 @@ public class Collider extends PooledComponent {
     protected void reset() {
         shape = null;
         useContinuousDetection = false;
-        categoryBits = categoryMaskBits = 1;
+        collisionLayer = collisionMask = 1;
     }
 
     public float getLeft(){
