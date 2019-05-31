@@ -11,7 +11,7 @@ public class Size extends PooledComponent implements Tweenable{
     public final Vector2 xy = new Vector2();
 
     public float x(){
-        return xy.y;
+        return xy.x;
     }
 
     public float y(){
